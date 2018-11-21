@@ -12,7 +12,6 @@ public class BoatScript : MonoBehaviour {
     public float turnSpeed;
     public bool loaded;
 
-	// Use this for initialization
 	void Start () {
         loaded = false;
         health = boat.health;
@@ -23,8 +22,11 @@ public class BoatScript : MonoBehaviour {
         loaded = true;
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (health <= 0) {
+            Component.Destroy(GetComponent<MeshFilter>());
+            Component.Destroy(GetComponent<BoatPhysics>());
+        }
+    }
+
 }

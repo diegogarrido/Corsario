@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoatController : MonoBehaviour
@@ -13,7 +12,6 @@ public class BoatController : MonoBehaviour
     private BoatSpyGlass spyGlass;
     private BoatScript boat;
 
-    // Use this for initialization
     void Start()
     {
         chased = false;
@@ -22,18 +20,20 @@ public class BoatController : MonoBehaviour
         spyGlass = GetComponent<BoatSpyGlass>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Movement();
-        Shoot();
+        if(boat.health > 0)
+        {
+            Movement();
+            Shoot();
+        }
         if (chased && !GetComponent<AudioSource>().isPlaying)
         {
-            GetComponent<AudioSource>().Play();
+            GetComponent<MusicScript>().Play();
         }
         else if(!chased && GetComponent<AudioSource>().isPlaying)
         {
-            GetComponent<AudioSource>().Pause();
+            GetComponent<MusicScript>().Stop();
         }
     }
 
