@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca90951e3b179954ba28a7d44de3377a, type: 3}
+  m_Name: Riddle 1
+  m_EditorClassIdentifier: 
+  riddle: "Tenemos 4 cofres y dentro de uno hay un tesoro. Cada cofre contiene una
+    inscripci\xF3n y sabemos que 2 dicen la verdad y 2 mienten. \xBFD\xF3nde est\xE1
+    el tesoro? Cofre 1 -> El tesoro no est\xE1 aqu\xED. Cofre 2 -> El cofre 1 dice
+    la verdad. Cofre 3 -> El tesoro no est\xE1 en el cofre 2. Cofre 4 -> El cofre
+    3 est\xE1 vac\xEDo."
+  answers:
+  - Cofre 1
+  - Cofre 2
+  - Cofre 3
+  - Cofre 4
+  correct: 1
+  difficulty: 1

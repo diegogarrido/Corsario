@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca90951e3b179954ba28a7d44de3377a, type: 3}
+  m_Name: Riddle 7
+  m_EditorClassIdentifier: 
+  riddle: "En un periodo de cinco noches consecutivas, un murci\xE9lago ha capturado
+    100 insectos. Si cada noche ha capturado 6 insectos m\xE1s que la anterior. \xBFCuantos
+    mosquitos captur\xF3 cada noche?"
+  answers:
+  - 6,12,18,24,30
+  - 10,16,22,28,34
+  - 8,14,20,26,32
+  correct: 3
+  difficulty: 1

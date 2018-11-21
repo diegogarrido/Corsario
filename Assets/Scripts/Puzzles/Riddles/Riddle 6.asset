@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca90951e3b179954ba28a7d44de3377a, type: 3}
+  m_Name: Riddle 6
+  m_EditorClassIdentifier: 
+  riddle: "Hab\xEDa una vez un hombre solitario que nunca dejaba su hogar. Las \xFAnicas
+    veces en que alguien lo visitaba era cuando le dejaban comida y provisiones, pero
+    nunca nadie entraba a su morada. Entonces, en una noche invernal de tormenta,
+    cuando un g\xE9lido vendaval soplaba, el hombre tuvo un ataque de nervios. Subi\xF3
+    las escaleras, apag\xF3 todas las luces y se fue a dormir. A la ma\xF1ana siguiente,
+    hab\xEDa causado la muerte de cientos de personas. \xBFC\xF3mo? "
+  answers:
+  - Un farolero
+  - Un guardia
+  - "Un m\xE9dico"
+  correct: 1
+  difficulty: 1

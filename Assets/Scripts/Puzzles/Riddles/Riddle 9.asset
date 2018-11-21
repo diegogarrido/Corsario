@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca90951e3b179954ba28a7d44de3377a, type: 3}
+  m_Name: Riddle 9
+  m_EditorClassIdentifier: 
+  riddle: "\xBFQu\xE9 es lo que puedes encontrar una vez en un minuto, 2 veces en
+    un momento y ninguna vez en cien a\xF1os ?"
+  answers:
+  - La felicidad
+  - Los segundos
+  - La M
+  correct: 0
+  difficulty: 1

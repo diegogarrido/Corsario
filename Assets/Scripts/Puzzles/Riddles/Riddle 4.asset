@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca90951e3b179954ba28a7d44de3377a, type: 3}
+  m_Name: Riddle 4
+  m_EditorClassIdentifier: 
+  riddle: "Una mujer dio a luz de parto natural a dos hijos varones que nacieron a
+    la misma hora en el mismo d\xEDa del mismo mes y en el mismo a\xF1o, pero no fueron
+    gemelos y ella no ten\xEDa una m\xE1quina del tiempo a la mano. \xBFC\xF3mo fue
+    posible?"
+  answers:
+  - Es Imposible
+  - Son Trillizos
+  - Era un clon
+  correct: 2
+  difficulty: 1
