@@ -7,6 +7,7 @@ public class BoatController : MonoBehaviour
     public GameObject[] cannonsLeft;
     public GameObject[] cannonsRight;
     public CameraFollow cameraFollowing;
+    public bool chased;
 
     private Vector3 previous;
     private BoatSpyGlass spyGlass;
@@ -15,6 +16,7 @@ public class BoatController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        chased = false;
         boat = GetComponent<BoatScript>();
         previous = transform.position;
         spyGlass = GetComponent<BoatSpyGlass>();
@@ -25,6 +27,14 @@ public class BoatController : MonoBehaviour
     {
         Movement();
         Shoot();
+        if (chased && !GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().Play();
+        }
+        else if(!chased && GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().Pause();
+        }
     }
 
     private void Shoot()
@@ -86,6 +96,12 @@ public class BoatController : MonoBehaviour
         if(collision.gameObject.tag == "Terrain")
         {
             boat.health -= 50;
+        }
+
+        if(collision.gameObject.tag == "Ship")
+        {
+            gameObject.GetComponent<AudioSource>().Stop(); 
+            gameObject.GetComponent<AudioSource>().Play();
         }
     }
 }

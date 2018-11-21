@@ -10,6 +10,7 @@ public class BoatEnemy : MonoBehaviour
     public GameObject[] cannonsRight;
     public string playerIs;
     public string playerAt;
+    public bool chasing;
 
     private BoatScript boat;
     private int cont;
@@ -39,11 +40,21 @@ public class BoatEnemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.GetComponent<BoatController>().chased = false;
+            chasing = false;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && cont == 0)
         {
             GameObject player = other.gameObject;
+            player.GetComponent<BoatController>().chased = true;
             Vector3 targetPoint = transform.position - player.transform.position;
             Vector3 dirFromAtoB = targetPoint.normalized;
             float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
@@ -149,6 +160,10 @@ public class BoatEnemy : MonoBehaviour
                     StartCoroutine(shoot);
                 }
             }
+        }
+        else if (other.gameObject.tag == "Player" && cont > 0)
+        {
+            other.gameObject.GetComponent<BoatController>().chased = false;
         }
     }
 

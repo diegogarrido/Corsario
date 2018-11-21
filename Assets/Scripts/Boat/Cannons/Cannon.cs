@@ -14,8 +14,7 @@ public class Cannon : ScriptableObject
 
     public GameObject Shoot(GameObject cannonBall, GameObject cannon, GameObject shootPoint, GameObject shooter)
     {
-       
-    
+      
         GameObject ball = Instantiate(cannonBall);
         ball.GetComponent<CannonBallScript>().shooter = shooter;
         ball.GetComponent<Rigidbody>().mass *= cannon.transform.localScale.x;
