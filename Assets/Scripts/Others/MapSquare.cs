@@ -8,6 +8,7 @@ public class MapSquare{
     public int islandIndex;
     public int CoordX;
     public int CoordZ;
+    public string content;
     //imagen en mapa
 
 }

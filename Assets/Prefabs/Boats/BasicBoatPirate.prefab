@@ -2292,6 +2292,8 @@ MonoBehaviour:
   playerIs: 
   playerAt: 
   chasing: 0
+  resourceCrate: {fileID: 1094622891190910, guid: bf9ec770622162b45b396f6f55f3476f,
+    type: 2}
 --- !u!135 &135721528911592176
 SphereCollider:
   m_ObjectHideFlags: 1

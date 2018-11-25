@@ -24,20 +24,20 @@ public static class DataManager
 
     public static void SaveInventory(PlayerInventory inv)
     {
-        FileInfo f = new FileInfo(Application.persistentDataPath + "/" + saveName + "PlayerInventory" + ".dat");
+        FileInfo f = new FileInfo(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat");
         f.Directory.Create();
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "PlayerInventory" + ".dat", FileMode.OpenOrCreate);
+        FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat", FileMode.OpenOrCreate);
         bf.Serialize(file, inv);
         file.Close();
     }
 
     public static PlayerInventory LoadInventory()
     {
-        if (File.Exists(Application.persistentDataPath + "/" + saveName + "PlayerInventory" + ".dat"))
+        if (File.Exists(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "PlayerInventory" + ".dat", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat", FileMode.Open);
             PlayerInventory inv = (PlayerInventory)bf.Deserialize(file);
             file.Close();
             return inv;
@@ -50,20 +50,20 @@ public static class DataManager
 
     public static void SaveData(GameData data)
     {
-        FileInfo f = new FileInfo(Application.persistentDataPath + "/" + saveName + "PlayerData" + ".dat");
+        FileInfo f = new FileInfo(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat");
         f.Directory.Create();
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "PlayerData" + ".dat", FileMode.OpenOrCreate);
+        FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat", FileMode.OpenOrCreate);
         bf.Serialize(file, data);
         file.Close();
     }
 
     public static GameData LoadData()
     {
-        if (File.Exists(Application.persistentDataPath + "/" + saveName + "PlayerData" + ".dat"))
+        if (File.Exists(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "PlayerData" + ".dat", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat", FileMode.Open);
             GameData data = (GameData)bf.Deserialize(file);
             file.Close();
             return data;
@@ -84,21 +84,6 @@ public static class DataManager
         file.Close();
     }
 
-    public static bool SquareCreated(int x, int z)
-    {
-        return File.Exists(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + ".dat");
-    }
-
-    public static bool MapCreated()
-    {
-        return Directory.Exists(Application.persistentDataPath + "/" + saveName + "/Map/");
-    }
-
-    public static bool SaveCreated(string name)
-    {
-        return Directory.Exists(Application.persistentDataPath + "/" + name);
-    }
-
     public static MapSquare LoadSquare(int x, int z)
     {
         if (File.Exists(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + ".dat"))
@@ -114,4 +99,47 @@ public static class DataManager
             return null;
         }
     }
+
+    public static void SaveSquareData(SquareData data, int x, int z)
+    {
+        FileInfo f = new FileInfo(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + " Data.dat");
+        f.Directory.Create();
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + " Data.dat", FileMode.OpenOrCreate);
+        bf.Serialize(file, data);
+        file.Close();
+    }
+
+    public static SquareData LoadSquareData(int x, int z)
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + " Data.dat"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + " Data.dat", FileMode.Open);
+            SquareData data = (SquareData)bf.Deserialize(file);
+            file.Close();
+            return data;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static bool SquareCreated(int x, int z)
+    {
+        return File.Exists(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + ".dat");
+    }
+
+    public static bool MapCreated()
+    {
+        return Directory.Exists(Application.persistentDataPath + "/" + saveName + "/Map/");
+    }
+
+    public static bool SaveCreated(string name)
+    {
+        return Directory.Exists(Application.persistentDataPath + "/" + name);
+    }
+
+
 }

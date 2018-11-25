@@ -21,13 +21,17 @@ public class WorldGeneration : MonoBehaviour
         GameData data = DataManager.LoadData();
         if (data != null)
         {
-            playerCoord = new int[] { data.playerX, data.playerZ };
-            Vector3 position = new Vector3((data.playerX * spacing) + Mathf.Sign(data.playerX), 0, (data.playerZ * spacing) + Mathf.Sign(data.playerZ));
+            int x = data.playerX;
+            int z = data.playerZ;
+            playerCoord = new int[] { x, z };
+            Vector3 position = new Vector3((x * spacing) + 1, 0, (z * spacing) + 1);
             player.gameObject.transform.position = position;
         }
         else
         {
-            playerCoord = new int[2];
+            playerCoord = new int[] { 3, 3 };
+            Vector3 position = new Vector3((3 * spacing) + 1, 0, (3 * spacing) + 1);
+            player.gameObject.transform.position = position;
         }
     }
 
@@ -49,6 +53,7 @@ public class WorldGeneration : MonoBehaviour
         {
             GenerateStart();
         }
+        SaveData();
     }
 
     void Update()
@@ -143,7 +148,9 @@ public class WorldGeneration : MonoBehaviour
         o.transform.localPosition = new Vector3(x * spacing, 0, z * spacing);
         if (type == "Big")
         {
-            Instantiate(terrainsBig[islandIndex], o.transform);
+            GameObject sq = Instantiate(terrainsBig[islandIndex], o.transform);
+            sq.GetComponent<BigSpawns>().x = x;
+            sq.GetComponent<BigSpawns>().z = z;
         }
         else if (type == "Medium")
         {
@@ -169,11 +176,21 @@ public class WorldGeneration : MonoBehaviour
         int type = Random.Range(0, 100);
         GameObject m;
         int number = -1;
+        if (x == 3 && z == 3)
+        {
+            type = 99;
+        }
         if (type >= 95)
         {
             iType = "Big";
             number = Random.Range(0, terrainsBig.Length);
             m = Instantiate(terrainsBig[number], o.transform);
+            m.GetComponent<BigSpawns>().x = x;
+            m.GetComponent<BigSpawns>().z = z;
+            if (x == 3 && z == 3)
+            {
+                m.GetComponent<BigSpawns>().forceBase = true;
+            }
         }
         else if (type >= 85)
         {
@@ -215,11 +232,10 @@ public class WorldGeneration : MonoBehaviour
             }
             x += spacing;
         }
-        playerCoord = new int[] { 3, 3 };
         SaveData();
     }
 
-    private void SaveData()
+    public void SaveData()
     {
         GameData data = new GameData();
         data.playerX = playerCoord[0];

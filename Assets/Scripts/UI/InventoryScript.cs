@@ -160,7 +160,7 @@ public class InventoryScript : MonoBehaviour
         equipPanel.SetActive(!equipPanel.activeInHierarchy);
     }
 
-    private void SaveInventory()
+    public void SaveInventory()
     {
         PlayerInventory inv = new PlayerInventory();
         inv.items = playerItemsIndexes;

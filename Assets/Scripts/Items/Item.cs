@@ -11,5 +11,7 @@ public class Item : ScriptableObject
     public bool equipable;
     public bool usable;
     public float weight;
+    [Range(1, 10)]
+    public int rarity;
 
 }

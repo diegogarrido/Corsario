@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: BasicCannonItem
   m_EditorClassIdentifier: 
   itemName: "Ca\xF1on b\xE1sico"
-  sprite: {fileID: 0}
+  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   equipable: 1
   usable: 0
   weight: 10
+  rarity: 5
   cannon: {fileID: 11400000, guid: ab0b068828b4a2f44859d429fef346f8, type: 2}

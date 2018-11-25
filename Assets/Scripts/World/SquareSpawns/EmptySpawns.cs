@@ -25,7 +25,7 @@ public class EmptySpawns : MonoBehaviour
         }
         else if (rand > 30)
         {
-            int ammount = Random.Range(0, spawns.Length / 2);
+            int ammount = Random.Range(0, spawns.Length);
             for (int i = 0; i < ammount; i++)
             {
                 int spawn;

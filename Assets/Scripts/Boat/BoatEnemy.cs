@@ -11,13 +11,14 @@ public class BoatEnemy : MonoBehaviour
     public string playerIs;
     public string playerAt;
     public bool chasing;
+    public GameObject resourceCrate;
 
     private BoatScript boat;
-    private int cont;
+    private bool dying;
 
     void Start()
     {
-        cont = 0;
+        dying = false;
         playerIs = "None";
         playerAt = "None";
         boat = GetComponent<BoatScript>();
@@ -28,14 +29,10 @@ public class BoatEnemy : MonoBehaviour
     {
         if (boat.loaded)
         {
-            if (boat.health <= 0)
+            if (boat.health <= 0 && !dying)
             {
-                IEnumerator d = DieIn(10);
-                StartCoroutine(d);
-                if (cont++ < 180)
-                {
-                    transform.RotateAround(transform.position, transform.up, 1);
-                }
+                StartCoroutine(DieIn(5));
+                dying = true;
             }
         }
     }
@@ -51,7 +48,7 @@ public class BoatEnemy : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && cont == 0)
+        if (other.gameObject.tag == "Player" && boat.health > 0)
         {
             GameObject player = other.gameObject;
             player.GetComponent<BoatController>().chased = true;
@@ -161,7 +158,7 @@ public class BoatEnemy : MonoBehaviour
                 }
             }
         }
-        else if (other.gameObject.tag == "Player" && cont > 0)
+        else if (other.gameObject.tag == "Player" && boat.health <= 0)
         {
             other.gameObject.GetComponent<BoatController>().chased = false;
         }
@@ -207,7 +204,12 @@ public class BoatEnemy : MonoBehaviour
 
     private IEnumerator DieIn(float sec)
     {
-        Destroy(gameObject.GetComponent<MeshFilter>());
+        int cant = Random.Range(1, 5);
+        for (int i = 0; i < cant; i++)
+        {
+            Vector3 cratePosition = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+            Instantiate(resourceCrate).transform.position = transform.position + cratePosition;
+        }
         yield return new WaitForSeconds(sec);
         Destroy(gameObject);
     }

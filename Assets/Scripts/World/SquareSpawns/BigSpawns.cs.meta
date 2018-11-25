@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: fc37d7efe455cc74db49797184ccac14
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - buildingSpawn: {instanceID: 0}
+  - playerHouse1: {fileID: 100002, guid: 6ce57a6e6a75ae842abd6b3f56f9aeb2, type: 2}
+  - playerHouse2: {fileID: 100002, guid: bd09b2c1c8efa694da029fb6b1a9f2fd, type: 2}
+  - playerHouseFinished: {fileID: 100002, guid: b8beb0b1c5ecc86428ecf58aa1c1a42d,
+      type: 2}
+  - shop: {fileID: 1578830224910802, guid: 2030e0fa2aadfed4b9f99149cab54c72, type: 2}
+  - pirateBase: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
