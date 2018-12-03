@@ -6,17 +6,15 @@ public class BoatScript : MonoBehaviour {
 
     public Boat boat;
     public float health;
-    public float maxCargo;
-    public float cargo;
+    public float maxWeight;
     public float speed;
     public float turnSpeed;
     public bool loaded;
 
-	void Start () {
+	void Awake () {
         loaded = false;
         health = boat.health;
-        maxCargo = boat.capacity;
-        cargo = 0;
+        maxWeight = boat.capacity;
         speed = boat.speed;
         turnSpeed = boat.turnSpeed;
         loaded = true;

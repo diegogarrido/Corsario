@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New ItemCannon", menuName = "ItemCannon")]
 public class ItemCannon : Item {
 
-	public Cannon cannon;
+	public GameObject cannon;
 }

@@ -10,7 +10,6 @@ public class WorldGeneration : MonoBehaviour
     public GameObject[] terrainsMedium;
     public GameObject[] terrainsBig;
     public GameObject terrainEmpty;
-    public GameObject[,] map;
     public int[] playerCoord;
 
     private float spacing = 1000f;
@@ -33,13 +32,8 @@ public class WorldGeneration : MonoBehaviour
             Vector3 position = new Vector3((3 * spacing) + 1, 0, (3 * spacing) + 1);
             player.gameObject.transform.position = position;
         }
-    }
-
-    void Start()
-    {
         if (DataManager.MapCreated())
         {
-            map = new GameObject[6, 6];
             for (int i = playerCoord[0] - 3; i < playerCoord[0] + 3; i++)
             {
                 for (int j = playerCoord[1] - 3; j < playerCoord[1] + 3; j++)
@@ -66,6 +60,7 @@ public class WorldGeneration : MonoBehaviour
 
     private void CheckCoordinates()
     {
+        MapScript map = GameObject.FindGameObjectWithTag("Menu").GetComponent<MapScript>();
         if (player.transform.position.x > ((playerCoord[0] * spacing) + spacing))
         {
             playerCoord[0]++;
@@ -83,6 +78,7 @@ public class WorldGeneration : MonoBehaviour
                     GenerateSquare(playerCoord[0] + 2, playerCoord[1] + i);
                 }
             }
+            map.RefreshMap();
         }
         if (player.transform.position.x < (playerCoord[0] * spacing))
         {
@@ -101,6 +97,7 @@ public class WorldGeneration : MonoBehaviour
                     GenerateSquare(playerCoord[0] - 3, playerCoord[1] + i);
                 }
             }
+            map.RefreshMap();
         }
         if (player.transform.position.z > ((playerCoord[1] * spacing) + spacing))
         {
@@ -119,6 +116,7 @@ public class WorldGeneration : MonoBehaviour
                     GenerateSquare(playerCoord[0] + i, playerCoord[1] + 2);
                 }
             }
+            map.RefreshMap();
         }
         if (player.transform.position.z < (playerCoord[1] * spacing))
         {
@@ -137,6 +135,7 @@ public class WorldGeneration : MonoBehaviour
                     GenerateSquare(playerCoord[0] + i, playerCoord[1] - 3);
                 }
             }
+            map.RefreshMap();
         }
     }
 
@@ -209,7 +208,6 @@ public class WorldGeneration : MonoBehaviour
             iType = "Empty";
             m = Instantiate(terrainEmpty, o.transform);
         }
-        //map[x, z] = m;
         MapSquare square = new MapSquare();
         square.CoordX = x;
         square.CoordZ = z;
@@ -221,18 +219,16 @@ public class WorldGeneration : MonoBehaviour
     private void GenerateStart()
     {
         float x = 0;
-        map = new GameObject[6, 6];
-        for (int i = 0; i < map.Length / Mathf.Sqrt(map.Length); i++)
+        for (int i = 0; i < 6; i++)
         {
             float z = 0;
-            for (int j = 0; j < map.Length / Mathf.Sqrt(map.Length); j++)
+            for (int j = 0; j < 6; j++)
             {
                 GenerateSquare(i, j);
                 z += spacing;
             }
             x += spacing;
         }
-        SaveData();
     }
 
     public void SaveData()

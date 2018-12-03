@@ -20,8 +20,11 @@ public class ResourceCrate : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            inventory.AddItem(item, quantity);
-            Destroy(gameObject);
+            if(inventory.AvailableWeight() > item.weight)
+            {
+                inventory.AddItem(item, quantity);
+                Destroy(gameObject);
+            }
         }
     }
 

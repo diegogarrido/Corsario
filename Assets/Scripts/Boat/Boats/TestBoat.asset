@@ -16,3 +16,4 @@ MonoBehaviour:
   turnSpeed: 50
   health: 1000
   capacity: 1000
+  cannonsPerSide: 1

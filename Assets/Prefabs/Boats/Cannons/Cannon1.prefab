@@ -395,7 +395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c67bfd8b992524ba0c98924c020b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootPoint: {fileID: 1920947456242196}
+  shootPoints:
+  - {fileID: 1920947456242196}
   cannonBall: {fileID: 1633442719778946, guid: d6692a5ec6b9fd546916618f86dc4699, type: 2}
   cannon: {fileID: 11400000, guid: ab0b068828b4a2f44859d429fef346f8, type: 2}
   ready: 0

@@ -5,4 +5,5 @@ public class GameData{
 
 	public int playerX;
     public int playerZ;
+    public float playerHealth;
 }

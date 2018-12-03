@@ -11,5 +11,6 @@ public class Boat : ScriptableObject
     public float turnSpeed;
     public float health;
     public float capacity;
+    public int cannonsPerSide;
 
 }

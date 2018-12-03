@@ -9,7 +9,6 @@ public class Cannon : ScriptableObject
     public string cannonName;
     public float shootForce;
     public float coolDown;
-    public float weigth;
     public int shoots;
 
     public GameObject Shoot(GameObject cannonBall, GameObject cannon, GameObject shootPoint, GameObject shooter)

@@ -6,21 +6,24 @@ using UnityEngine;
 public class CannonScript : MonoBehaviour
 {
 
-    public GameObject shootPoint;
+    public GameObject[] shootPoints;
     public GameObject cannonBall;
     public Cannon cannon;
     public bool ready;
     public float timeLeft;
     public int shoots;
 
+    private int shootPoint;
+
     void Start()
     {
+        shootPoint = 0;
         shoots = cannon.shoots;
         ready = true;
     }
     void Update()
     {
-        
+
         if (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
@@ -33,14 +36,17 @@ public class CannonScript : MonoBehaviour
 
     public void Shoot(GameObject shooter)
     {
-        
-
         if (ready)
         {
-            gameObject.GetComponent<AudioSource>().Stop(); 
+            gameObject.GetComponent<AudioSource>().Stop();
             gameObject.GetComponent<AudioSource>().Play();
-          
-            cannon.Shoot(cannonBall, gameObject, shootPoint,shooter);
+
+            cannon.Shoot(cannonBall, gameObject, shootPoints[shootPoint], shooter);
+            shootPoint++;
+            if(shootPoint >= shootPoints.Length)
+            {
+                shootPoint = 0;
+            }
             shoots--;
             if (shoots == 0)
             {
