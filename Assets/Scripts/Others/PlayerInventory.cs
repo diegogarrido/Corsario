@@ -9,4 +9,5 @@ public class PlayerInventory
     public int cannonBallEquiped;
     public int sailEquiped;
     public float totalWeight;
+    public int[] baseQuantities;
 }

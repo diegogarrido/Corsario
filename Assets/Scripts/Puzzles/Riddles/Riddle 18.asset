@@ -11,10 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca90951e3b179954ba28a7d44de3377a, type: 3}
   m_Name: Riddle 18
   m_EditorClassIdentifier: 
-  riddle: "\xBFQu\xE9 se mja mientras se seca?"
+  riddle: "\xBFQu\xE9 se moja mientras se seca?"
   answers:
   - Las toallas
   - Las plantas
   - Servilletas
-  correct: 1
+  correct: 0
   difficulty: 1.5

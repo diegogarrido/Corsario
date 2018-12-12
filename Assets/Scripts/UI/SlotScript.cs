@@ -8,18 +8,20 @@ public class SlotScript : MonoBehaviour
     public Text quantity;
     public Image image;
     public GameObject options;
+    public bool transferable;
+    public bool inBase;
 
     private ToolTipScript tScript;
+    private TransferScript trScript;
     private GameObject t;
-
-    private void Awake()
-    {
-        t = GameObject.FindGameObjectWithTag("ToolTip");
-        tScript = t.GetComponent<ToolTipScript>();
-    }
+    private InventoryScript inv;
 
     void Start()
     {
+        t = GameObject.FindGameObjectWithTag("ToolTip");
+        tScript = t.GetComponent<ToolTipScript>();
+        inv = GameObject.FindGameObjectWithTag("Menu").GetComponent<InventoryScript>();
+        trScript = GameObject.FindGameObjectWithTag("TransferOptions").GetComponent<TransferScript>();
         PointerExit();
         RefreshItem();
     }
@@ -29,9 +31,46 @@ public class SlotScript : MonoBehaviour
         ShowOptions();
     }
 
+    public void Transfer()
+    {
+        if (inBase)
+        {
+            trScript.max = GameObject.FindGameObjectWithTag("Menu").GetComponent<BaseScript>().baseQuantities[inv.ItemIndex(item)];
+            trScript.target = "Player";
+        }
+        else
+        {
+            trScript.max = inv.playerItemsQuantities[inv.FindItem(item)];
+            trScript.target = "Base";
+        }
+        trScript.item = item;
+        trScript.Show();
+    }
+
+    public void Drop()
+    {
+        if (inBase)
+        {
+            trScript.max = GameObject.FindGameObjectWithTag("Menu").GetComponent<BaseScript>().baseQuantities[inv.ItemIndex(item)];
+            trScript.target = "DropFromBase";
+        }
+        else
+        {
+            trScript.max = inv.playerItemsQuantities[inv.FindItem(item)];
+            trScript.target = "DropFromPlayer";
+        }
+        trScript.item = item;
+        trScript.Show();
+    }
+
+    public void Sell()
+    {
+
+    }
+
     public void PointerEnter()
     {
-        if(item != null)
+        if (item != null)
         {
             tScript.title.text = item.itemName;
             tScript.AddStat("Valor", "" + item.price);
@@ -60,23 +99,14 @@ public class SlotScript : MonoBehaviour
             {
                 tScript.AddStat("Equipable", "No");
             }
-            foreach (Transform child in t.transform)
-            {
-                child.gameObject.SetActive(true);
-            }
+            tScript.Show();
         }
     }
 
     public void PointerExit()
     {
-        foreach (Transform child in t.transform.GetChild(1).transform)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in t.transform)
-        {
-           child.gameObject.SetActive(false);
-        }
+        tScript.ClearStats();
+        tScript.Hide();
     }
 
     public void RefreshItem()
@@ -130,9 +160,21 @@ public class SlotScript : MonoBehaviour
     {
         if (item != null)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1) && MouseIsOver() && item.equipable)
+            if (Input.GetKeyDown(KeyCode.Mouse1) && MouseIsOver())
             {
                 options.SetActive(true);
+                if (inBase)
+                {
+                    options.transform.GetChild(0).gameObject.SetActive(false);
+                }
+                else
+                {
+                    options.transform.GetChild(0).gameObject.SetActive(item.equipable);
+                }
+                if (options.transform.childCount > 1)
+                {
+                    options.transform.GetChild(1).gameObject.SetActive(transferable);
+                }
             }
         }
         if (!MouseIsOver())

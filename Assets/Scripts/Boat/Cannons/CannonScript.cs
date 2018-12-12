@@ -34,7 +34,7 @@ public class CannonScript : MonoBehaviour
         }
     }
 
-    public void Shoot(GameObject shooter)
+    public bool Shoot(GameObject shooter)
     {
         if (ready)
         {
@@ -54,6 +54,11 @@ public class CannonScript : MonoBehaviour
                 shoots = cannon.shoots;
                 ready = false;
             }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

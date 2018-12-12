@@ -23,7 +23,7 @@ public class LoadingScreenScript : MonoBehaviour {
 
     private IEnumerator Load(string scene)
     {
-        async = SceneManager.LoadSceneAsync(scene);
+        async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
         async.allowSceneActivation = false;
         while (!async.isDone)
         {
@@ -35,5 +35,6 @@ public class LoadingScreenScript : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.01f);
         }
+        SceneManager.UnloadSceneAsync("LoadingScreen");
     }
 }

@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class DeathScript : MonoBehaviour {
 
     public GameObject deathPanel;
-    public BoatScript player;
+    private BoatScript player;
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<BoatScript>();
         deathPanel.SetActive(false);
     }
 
@@ -38,6 +39,7 @@ public class DeathScript : MonoBehaviour {
     public void ReloadScene()
     {
         PlayerPrefs.SetString("Load", "Game");
+        SceneManager.UnloadSceneAsync("Game");
         SceneManager.LoadScene(3);
     }
 }

@@ -145,16 +145,19 @@ public class BoatEnemy : MonoBehaviour
                 }
                 else if (playerAt == "Shooting Range")
                 {
-                    IEnumerator shoot = null;
-                    if (playerIs == "Right")
+                    if (!GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().gamePaused)
                     {
-                        shoot = ShootRight();
+                        IEnumerator shoot = null;
+                        if (playerIs == "Right")
+                        {
+                            shoot = ShootRight();
+                        }
+                        else if (playerIs == "Left")
+                        {
+                            shoot = ShootLeft();
+                        }
+                        StartCoroutine(shoot);
                     }
-                    else if (playerIs == "Left")
-                    {
-                        shoot = ShootLeft();
-                    }
-                    StartCoroutine(shoot);
                 }
             }
         }

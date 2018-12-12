@@ -36,10 +36,26 @@ public class RiddleScript : MonoBehaviour
 
     }
 
-    void LoadRiddle()
+   public void Win()
     {
-        SceneManager.LoadScene(3);
+        RollItem();
     }
 
- 
+    public void RollItem()
+    {
+       /* InventoryScript inv = GameObject.FindGameObject("Menu").GetComponent<InventoryScript>();
+
+
+        item = inve.items[Random.Range(0, inventory.items.Length)];
+        if (Random.Range(0, 100) >= (item.rarity * 10) - 10)
+        {
+            quantity = Random.Range(1, 200 / (item.rarity * 10));
+        }
+        else
+        {
+            RollItem();
+        } */
+    }
+
+
 }

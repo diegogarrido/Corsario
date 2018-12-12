@@ -30,6 +30,7 @@ public class EndlessWaterSquare : MonoBehaviour {
 
     void Start()
     {
+        boatObj = GameObject.FindGameObjectWithTag("Player");
         CreateEndlessSea();
 
         //Init the time

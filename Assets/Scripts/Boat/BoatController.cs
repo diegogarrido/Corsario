@@ -43,18 +43,21 @@ public class BoatController : MonoBehaviour
 
     private void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (!GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().gamePaused)
         {
-            IEnumerator shoot = null;
-            if (cameraFollowing.looking == "Right")
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                shoot = ShootRight();
-                StartCoroutine(shoot);
-            }
-            else if (cameraFollowing.looking == "Left")
-            {
-                shoot = ShootLeft();
-                StartCoroutine(shoot);
+                IEnumerator shoot = null;
+                if (cameraFollowing.looking == "Right")
+                {
+                    shoot = ShootRight();
+                    StartCoroutine(shoot);
+                }
+                else if (cameraFollowing.looking == "Left")
+                {
+                    shoot = ShootLeft();
+                    StartCoroutine(shoot);
+                }
             }
         }
     }
@@ -116,8 +119,10 @@ public class BoatController : MonoBehaviour
                 if (inv.cannonBallEquiped != -1)
                 {
                     cannonsRight[i].GetComponentInChildren<CannonScript>().cannonBall = ((ItemCannonBall)inv.items[inv.cannonBallEquiped]).cannonBall;
-                    cannonsRight[i].GetComponentInChildren<CannonScript>().Shoot(transform.GetChild(0).gameObject);
-                    equ.UseCannonBall();
+                    if (cannonsRight[i].GetComponentInChildren<CannonScript>().Shoot(transform.GetChild(0).gameObject))
+                    {
+                        equ.UseCannonBall();
+                    }
                 }
             }
         }
@@ -133,8 +138,9 @@ public class BoatController : MonoBehaviour
                 if(inv.cannonBallEquiped != -1)
                 {
                     cannonsLeft[i].GetComponentInChildren<CannonScript>().cannonBall = ((ItemCannonBall)inv.items[inv.cannonBallEquiped]).cannonBall;
-                    cannonsLeft[i].GetComponentInChildren<CannonScript>().Shoot(transform.GetChild(0).gameObject);
-                    equ.UseCannonBall();
+                    if (cannonsLeft[i].GetComponentInChildren<CannonScript>().Shoot(transform.GetChild(0).gameObject)) {
+                        equ.UseCannonBall();
+                    }
                 }
             }
         }

@@ -14,8 +14,8 @@ public class InventoryScript : MonoBehaviour
     public BoatScript player;
 
     private Item[] playerItems;
-    private int[] playerItemsIndexes;
-    private int[] playerItemsQuantities;
+    public int[] playerItemsIndexes;
+    public int[] playerItemsQuantities;
     public int[] cannonsEquipped;
     public int cannonBallEquiped;
     public int sailEquiped;
@@ -27,9 +27,9 @@ public class InventoryScript : MonoBehaviour
         LoadData();
     }
 
-    void Update()
+    private void Start()
     {
-        OpenClose();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<BoatScript>();
     }
 
     public void LoadData()
@@ -44,6 +44,7 @@ public class InventoryScript : MonoBehaviour
             cannonBallEquiped = playerInv.cannonBallEquiped;
             sailEquiped = playerInv.sailEquiped;
             totalWeight = playerInv.totalWeight;
+            GetComponent<BaseScript>().baseQuantities = playerInv.baseQuantities;
         }
         else
         {
@@ -58,12 +59,19 @@ public class InventoryScript : MonoBehaviour
             sailEquiped = -1;
             playerItems = new Item[0];
             totalWeight = 0;
+            GetComponent<BaseScript>().baseQuantities = new int[items.Length];
+            for (int i = 0; i < GetComponent<BaseScript>().baseQuantities.Length; i++)
+            {
+                GetComponent<BaseScript>().baseQuantities[i] = 0;
+            }
             SaveInventory();
-            AddItem(items[3], 60);
+            AddItem(items[3], 100);
             AddItem(items[4], 1);
             AddItem(items[6], 1);
             AddItem(items[5], 1);
             AddItem(items[7], 1);
+            GetComponent<BaseScript>().AddItem(items[0], 10);
+            GetComponent<BaseScript>().AddItem(items[3], 100);
         }
         RefreshInventory();
     }
@@ -109,6 +117,14 @@ public class InventoryScript : MonoBehaviour
         return player.maxWeight - totalWeight;
     }
 
+    public void SetTransfereable(bool transferable)
+    {
+        foreach(Transform child in itemsPanel.transform)
+        {
+            child.GetComponent<SlotScript>().transferable = transferable;
+        }
+    }
+
     public void RefreshInventory()
     {
         foreach (Transform child in itemsPanel.transform)
@@ -121,6 +137,8 @@ public class InventoryScript : MonoBehaviour
             playerItems[i] = items[playerItemsIndexes[i]];
             newSlot.GetComponent<SlotScript>().item = playerItems[i];
             newSlot.GetComponent<SlotScript>().quantity.text = "" + playerItemsQuantities[i];
+            newSlot.GetComponent<SlotScript>().inBase = false;
+            newSlot.GetComponent<SlotScript>().transferable = false;
         }
     }
 
@@ -229,12 +247,9 @@ public class InventoryScript : MonoBehaviour
         return -1;
     }
 
-    private void OpenClose()
+    public void Active(bool active)
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            inventoryPanel.SetActive(!inventoryPanel.activeInHierarchy);
-        }
+        inventoryPanel.SetActive(active);
     }
 
     public void SwapMenus()
@@ -252,6 +267,7 @@ public class InventoryScript : MonoBehaviour
         inv.cannonBallEquiped = cannonBallEquiped;
         inv.sailEquiped = sailEquiped;
         inv.totalWeight = totalWeight;
+        inv.baseQuantities = GetComponent<BaseScript>().baseQuantities;
         DataManager.SaveInventory(inv);
     }
 }

@@ -1,64 +1,73 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
+public class MenuController : MonoBehaviour {
 
-public class MenuController : MonoBehaviour
-{
+    public bool gamePaused;
+    public KeyCode lastPressed;
+    public GameObject mainUI;
 
-    public GameObject mainMenu;
-    public GameObject loadMenu;
+    private GameObject menu;
 
-
-    private void Start()
-    {
-        Text[] texts = loadMenu.GetComponentsInChildren<Text>();
-        for (int i = 1; i <= 3; i++)
+	void Start () {
+        gamePaused = false;
+        menu = GameObject.FindGameObjectWithTag("Menu");
+    }
+	
+	void Update () {
+        if (!gamePaused)
         {
-            if (DataManager.SaveCreated("Save" + i))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                texts[i - 1].text = "Partida " + i;
+                lastPressed = KeyCode.Escape;
+                menu.GetComponent<PauseMenu>().Active(true);
+                gamePaused = true;
             }
-            else
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                texts[i - 1].text = "Nueva Partida";
+                lastPressed = KeyCode.I;
+                menu.GetComponent<InventoryScript>().Active(true);
+                gamePaused = true;
+            }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                lastPressed = KeyCode.M;
+                menu.GetComponent<MapScript>().Active(true);
+                gamePaused = true;
+            }
+            Time.timeScale = 1;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            if (Input.GetKeyDown(lastPressed))
+            {
+                GameObject.FindGameObjectWithTag("ToolTip").GetComponent<ToolTipScript>().Hide();
+                GameObject.FindGameObjectWithTag("TransferOptions").GetComponent<TransferScript>().Hide();
+                CloseAll();
             }
         }
-        loadMenu.SetActive(false);
     }
 
-    public void openMainMenu()
+    public void HideMainUI()
     {
-        mainMenu.SetActive(true);
-        loadMenu.SetActive(false);
+        mainUI.SetActive(false);
     }
 
-    public void openLoadMenu()
+    public void ShowMainUI()
     {
-        mainMenu.SetActive(false);
-        loadMenu.SetActive(true);
+        mainUI.SetActive(true);
     }
 
-    public void PlayGame(string saveName)
+    public void CloseAll()
     {
-        if (saveName == "0")
-        {
-            saveName = PlayerPrefs.GetString("LastPlayed");
-            if (saveName.Length == 0)
-            {
-                saveName = "Save1";
-            }
-        }
-        DataManager.saveName = saveName;
-        PlayerPrefs.SetString("Load","Game");
-        SceneManager.LoadScene(3);
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("Se cerro el juego");
-        Application.Quit();
+        menu.GetComponent<InventoryScript>().Active(false);
+        menu.GetComponent<PauseMenu>().Active(false);
+        menu.GetComponent<MapScript>().Active(false);
+        menu.GetComponent<BaseScript>().Active(false);
+        menu.GetComponent<ShopScript>().Active(false);
+        Time.timeScale = 1;
+        gamePaused = false;
     }
 }

@@ -8,6 +8,7 @@ public class EmptySpawns : MonoBehaviour
     public GameObject[] spawns;
     public GameObject[] pirateBoats;
     public GameObject tornado;
+    public GameObject resourceCrate;
 
     private bool[] spawnUsed;
 
@@ -21,7 +22,13 @@ public class EmptySpawns : MonoBehaviour
         }
         else if (rand > 60)
         {
-            Instantiate(tornado,transform);
+            Instantiate(tornado, transform);
+            int ammount = Random.Range(3, 8);
+            for (int i = 0; i < ammount; i++)
+            {
+                Vector3 position = new Vector3(transform.position.x + 500 + Random.Range(-250, 250), 0, transform.position.z + 500 + Random.Range(-250, 250));
+                Instantiate(resourceCrate, position, Quaternion.identity, transform);
+            }
         }
         else if (rand > 30)
         {

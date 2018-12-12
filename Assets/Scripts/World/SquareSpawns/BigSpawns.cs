@@ -17,6 +17,7 @@ public class BigSpawns : MonoBehaviour
     public int z;
 
     private SquareData data;
+
     void Start()
     {
         data = DataManager.LoadSquareData(x, z);
@@ -39,6 +40,8 @@ public class BigSpawns : MonoBehaviour
             if (data.content == "Shop")
             {
                 Instantiate(shop, buildingSpawn.transform);
+                GameObject.FindGameObjectWithTag("Menu").GetComponent<ShopScript>().RollItems();
+                GameObject.FindGameObjectWithTag("Menu").GetComponent<ShopScript>().RefreshInventory();
             }
             else if (data.content == "PirateBase")
             {
@@ -67,6 +70,8 @@ public class BigSpawns : MonoBehaviour
         {
             Instantiate(shop, buildingSpawn.transform);
             content = "Shop";
+            GameObject.FindGameObjectWithTag("Menu").GetComponent<ShopScript>().RollItems();
+            GameObject.FindGameObjectWithTag("Menu").GetComponent<ShopScript>().RefreshInventory();
         }
         else if (rand > 50)
         {

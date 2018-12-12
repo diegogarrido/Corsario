@@ -7,39 +7,59 @@ public class SmallSpawns : MonoBehaviour
 
     public GameObject[] spawns;
     public GameObject treasureChest;
+    public int x;
+    public int z;
 
     private bool[] spawnUsed;
+    private SquareData data;
 
     void Start()
     {
-        spawnUsed = new bool[spawns.Length];
-        int rand = Random.Range(0, 100);
-        if (rand > 40)
+        data = DataManager.LoadSquareData(x, z);
+        if (data != null)
         {
-            /*while (true)
+            if(data.content.Split('-')[0] == "Treasure")
             {
-                int spawn = Random.Range(0, spawns.Length);
-                if (!spawnUsed[spawn])
-                {
-                    //Spawn resource crate
-                    spawnUsed[spawn] = true;
-                    break;
-                }
-            }*/
+                GameObject t = Instantiate(treasureChest,spawns[int.Parse(data.content.Split('-')[2])].transform);
+                t.GetComponent<Animator>().SetBool("Opened",true);
+            }
         }
-        else if (rand > 10)
+        else
         {
-            while (true)
+            spawnUsed = new bool[spawns.Length];
+            int rand = Random.Range(0, 100);
+            if (rand > 40)
             {
-                int spawn = Random.Range(0, spawns.Length);
-                if (!spawnUsed[spawn])
+                /*while (true)
                 {
-                    //Instantiate(treasureChest).transform.position = spawns[spawn].transform.position;
-                    spawnUsed[spawn] = true;
-                    break;
+                    int spawn = Random.Range(0, spawns.Length);
+                    if (!spawnUsed[spawn])
+                    {
+                        //Spawn resource crate
+                        spawnUsed[spawn] = true;
+                        break;
+                    }
+                }*/
+            }
+            else if (rand > 10)
+            {
+                while (true)
+                {
+                    int spawn = Random.Range(0, spawns.Length);
+                    if (!spawnUsed[spawn])
+                    {
+                        Instantiate(treasureChest, spawns[spawn].transform);
+                        spawnUsed[spawn] = true;
+                        data = new SquareData();
+                        data.content = "Treasure-Closed-" + spawn;
+                        DataManager.SaveSquareData(data, x, z);
+                        break;
+                    }
                 }
             }
         }
+
+        
     }
 
 }

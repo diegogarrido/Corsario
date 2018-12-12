@@ -22,4 +22,28 @@ public class ToolTipScript : MonoBehaviour {
         GameObject s = Instantiate(statPrefab,stats.transform);
         s.GetComponent<Text>().text = stat + ": " + value;
     }
+
+    public void ClearStats()
+    {
+        foreach (Transform child in stats.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void Hide()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
+
+    public void Show()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+    }
 }

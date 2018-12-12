@@ -14,7 +14,7 @@ MonoBehaviour:
   riddle: Sin luz no existo, pero si me mira, me muero.
   answers:
   - "D\xEDa "
-  - Sombra
+  - 1
   - Noche
   correct: 2
   difficulty: 2

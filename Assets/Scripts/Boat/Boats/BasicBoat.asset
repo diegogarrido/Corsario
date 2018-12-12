@@ -17,3 +17,5 @@ MonoBehaviour:
   health: 150
   capacity: 200
   cannonsPerSide: 2
+  price: 400
+  icon: {fileID: 0}

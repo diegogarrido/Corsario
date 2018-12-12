@@ -32,17 +32,20 @@ public class MapScript : MonoBehaviour
                     if (world.transform.GetChild(k).gameObject.name == i + "-" + j)
                     {
                         sec.GetComponent<Image>().sprite = world.transform.GetChild(k).GetComponentInChildren<SpriteRenderer>().sprite;
+                        if (i == x + 3 && j == z + 3)
+                        {
+                            GetComponent<MiniMapScript>().ChangeSquare(sec.GetComponent<Image>().sprite);
+                            sec.GetComponent<Image>().color = new Color(255,255,0);
+                        }
+                        break;
                     }
                 }
             }
         }
     }
 
-    void Update()
+    public void Active(bool active)
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            map.SetActive(!map.activeInHierarchy);
-        }
+        map.SetActive(active);
     }
 }

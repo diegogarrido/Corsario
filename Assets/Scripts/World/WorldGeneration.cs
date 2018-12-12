@@ -11,44 +11,7 @@ public class WorldGeneration : MonoBehaviour
     public GameObject[] terrainsBig;
     public GameObject terrainEmpty;
     public int[] playerCoord;
-
-    private float spacing = 1000f;
-
-    private void Awake()
-    {
-        PlayerPrefs.SetString("LastPlayed", DataManager.saveName);
-        GameData data = DataManager.LoadData();
-        if (data != null)
-        {
-            int x = data.playerX;
-            int z = data.playerZ;
-            playerCoord = new int[] { x, z };
-            Vector3 position = new Vector3((x * spacing) + 1, 0, (z * spacing) + 1);
-            player.gameObject.transform.position = position;
-        }
-        else
-        {
-            playerCoord = new int[] { 3, 3 };
-            Vector3 position = new Vector3((3 * spacing) + 1, 0, (3 * spacing) + 1);
-            player.gameObject.transform.position = position;
-        }
-        if (DataManager.MapCreated())
-        {
-            for (int i = playerCoord[0] - 3; i < playerCoord[0] + 3; i++)
-            {
-                for (int j = playerCoord[1] - 3; j < playerCoord[1] + 3; j++)
-                {
-                    MapSquare sq = DataManager.LoadSquare(i, j);
-                    CreateSquare(sq.islandType, sq.islandIndex, sq.CoordX, sq.CoordZ);
-                }
-            }
-        }
-        else
-        {
-            GenerateStart();
-        }
-        SaveData();
-    }
+    public float spacing = 1000f;
 
     void Update()
     {
@@ -139,7 +102,7 @@ public class WorldGeneration : MonoBehaviour
         }
     }
 
-    private void CreateSquare(string type, int islandIndex, int x, int z)
+    public void CreateSquare(string type, int islandIndex, int x, int z)
     {
         GameObject o = new GameObject(x + "-" + z);
         o.tag = "MapSquare";
@@ -165,7 +128,7 @@ public class WorldGeneration : MonoBehaviour
         }
     }
 
-    private void GenerateSquare(int x, int z)
+    public void GenerateSquare(int x, int z)
     {
         GameObject o = new GameObject(x + "-" + z);
         o.tag = "MapSquare";
@@ -216,7 +179,7 @@ public class WorldGeneration : MonoBehaviour
         DataManager.SaveSquare(square);
     }
 
-    private void GenerateStart()
+    public void GenerateStart()
     {
         float x = 0;
         for (int i = 0; i < 6; i++)
@@ -236,6 +199,7 @@ public class WorldGeneration : MonoBehaviour
         GameData data = new GameData();
         data.playerX = playerCoord[0];
         data.playerZ = playerCoord[1];
+        data.boat = GetComponent<PlayerSpawner>().boat;
         DataManager.SaveData(data);
     }
 }

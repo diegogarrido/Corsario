@@ -1,45 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
-
-	public static bool GamePaused;
 	public GameObject pausedMenuUI;
 
     private void Start()
     {
-        GamePaused = false;
-        pausedMenuUI.SetActive(GamePaused);
+        pausedMenuUI.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update () {
-		if(Input.GetKeyDown(KeyCode.Escape))
-		{
-            SwapMenu();
-		}
-	}
-
-    private void SwapMenu()
+    public void Active(bool active)
     {
-        GamePaused = !GamePaused;
-        pausedMenuUI.SetActive(GamePaused);
+        pausedMenuUI.SetActive(active);
     }
 	//Funciones Botones
 
 	public void Continue()
 	{
-		pausedMenuUI.SetActive(false);
-		GamePaused = false;
+        GetComponent<MenuController>().CloseAll();
 	}
 
 	public void MainMenu()
 	{
-		SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
 	}
 
 }

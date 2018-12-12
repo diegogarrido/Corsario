@@ -31,7 +31,7 @@ public class ResourceCrate : MonoBehaviour
     public void RollItem()
     {
         item = inventory.items[Random.Range(0, inventory.items.Length)];
-        if (item.rarity * 10 > Random.Range(0,100))
+        if (Random.Range(0, 100) >= (item.rarity * 10) - 10)
         {
             quantity = Random.Range(1, 200 / (item.rarity * 10));
         }

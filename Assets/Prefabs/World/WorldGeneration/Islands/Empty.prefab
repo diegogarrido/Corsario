@@ -267,6 +267,8 @@ MonoBehaviour:
   pirateBoats:
   - {fileID: 1194171147709440, guid: a6c5668e5ba0e0348b1126c5479d37e0, type: 2}
   tornado: {fileID: 148822, guid: 9c81eb172a2e3644cad527014afc356e, type: 2}
+  resourceCrate: {fileID: 1094622891190910, guid: bf9ec770622162b45b396f6f55f3476f,
+    type: 2}
 --- !u!154 &154994153831540330
 TerrainCollider:
   m_ObjectHideFlags: 1
