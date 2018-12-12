@@ -75,7 +75,6 @@ public class ShopScript : MonoBehaviour
         {
             while (true)
             {
-                Debug.Log(inv.items);
                 shopItems[i] = Random.Range(0, inv.items.Length);
                 if (Random.Range(0, 100) >= (inv.items[shopItems[i]].rarity * 10) - 10)
                 {

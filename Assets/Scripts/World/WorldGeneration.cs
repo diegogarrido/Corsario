@@ -28,9 +28,9 @@ public class WorldGeneration : MonoBehaviour
         {
             playerCoord[0]++;
             SaveData();
-            for (int i = -3; i <= 2; i++)
+            for (int i = -2; i <= 2; i++)
             {
-                Destroy(GameObject.Find((playerCoord[0] - 4) + "-" + (playerCoord[1] + i)));
+                Destroy(GameObject.Find((playerCoord[0] - 3 ) + "-" + (playerCoord[1] + i)));
                 if (DataManager.SquareCreated(playerCoord[0] + 2, playerCoord[1] + i))
                 {
                     MapSquare sq = DataManager.LoadSquare(playerCoord[0] + 2, playerCoord[1] + i);
@@ -47,17 +47,17 @@ public class WorldGeneration : MonoBehaviour
         {
             playerCoord[0]--;
             SaveData();
-            for (int i = -3; i <= 2; i++)
+            for (int i = -2; i <= 2; i++)
             {
                 Destroy(GameObject.Find((playerCoord[0] + 3) + "-" + (playerCoord[1] + i)));
-                if (DataManager.SquareCreated(playerCoord[0] - 3, playerCoord[1] + i))
+                if (DataManager.SquareCreated(playerCoord[0] - 2, playerCoord[1] + i))
                 {
-                    MapSquare sq = DataManager.LoadSquare(playerCoord[0] - 3, playerCoord[1] + i);
+                    MapSquare sq = DataManager.LoadSquare(playerCoord[0] - 2, playerCoord[1] + i);
                     CreateSquare(sq.islandType, sq.islandIndex, sq.CoordX, sq.CoordZ);
                 }
                 else
                 {
-                    GenerateSquare(playerCoord[0] - 3, playerCoord[1] + i);
+                    GenerateSquare(playerCoord[0] - 2, playerCoord[1] + i);
                 }
             }
             map.RefreshMap();
@@ -66,9 +66,9 @@ public class WorldGeneration : MonoBehaviour
         {
             playerCoord[1]++;
             SaveData();
-            for (int i = -3; i <= 2; i++)
+            for (int i = -2; i <= 2; i++)
             {
-                Destroy(GameObject.Find((playerCoord[0] + i) + "-" + (playerCoord[1] - 4)));
+                Destroy(GameObject.Find((playerCoord[0] + i) + "-" + (playerCoord[1] - 3)));
                 if (DataManager.SquareCreated(playerCoord[0] + i, playerCoord[1] + 2))
                 {
                     MapSquare sq = DataManager.LoadSquare(playerCoord[0] + i, playerCoord[1] + 2);
@@ -85,17 +85,17 @@ public class WorldGeneration : MonoBehaviour
         {
             playerCoord[1]--;
             SaveData();
-            for (int i = -3; i <= 2; i++)
+            for (int i = -2; i <= 2; i++)
             {
                 Destroy(GameObject.Find((playerCoord[0] + i) + "-" + (playerCoord[1] + 3)));
-                if (DataManager.SquareCreated(playerCoord[0] + i, playerCoord[1] - 3))
+                if (DataManager.SquareCreated(playerCoord[0] + i, playerCoord[1] - 2))
                 {
-                    MapSquare sq = DataManager.LoadSquare(playerCoord[0] + i, playerCoord[1] - 3);
+                    MapSquare sq = DataManager.LoadSquare(playerCoord[0] + i, playerCoord[1] - 2);
                     CreateSquare(sq.islandType, sq.islandIndex, sq.CoordX, sq.CoordZ);
                 }
                 else
                 {
-                    GenerateSquare(playerCoord[0] + i, playerCoord[1] - 3);
+                    GenerateSquare(playerCoord[0] + i, playerCoord[1] - 2);
                 }
             }
             map.RefreshMap();
@@ -120,7 +120,9 @@ public class WorldGeneration : MonoBehaviour
         }
         else if (type == "Small")
         {
-            Instantiate(terrainsSmall[islandIndex], o.transform);
+            GameObject sq = Instantiate(terrainsSmall[islandIndex], o.transform);
+            sq.GetComponent<SmallSpawns>().x = x;
+            sq.GetComponent<SmallSpawns>().z = z;
         }
         else
         {
@@ -138,7 +140,7 @@ public class WorldGeneration : MonoBehaviour
         int type = Random.Range(0, 100);
         GameObject m;
         int number = -1;
-        if (x == 3 && z == 3)
+        if (x == 2 && z == 2)
         {
             type = 99;
         }
@@ -149,7 +151,7 @@ public class WorldGeneration : MonoBehaviour
             m = Instantiate(terrainsBig[number], o.transform);
             m.GetComponent<BigSpawns>().x = x;
             m.GetComponent<BigSpawns>().z = z;
-            if (x == 3 && z == 3)
+            if (x == 2 && z == 2)
             {
                 m.GetComponent<BigSpawns>().forceBase = true;
             }
@@ -165,6 +167,8 @@ public class WorldGeneration : MonoBehaviour
             iType = "Small";
             number = Random.Range(0, terrainsSmall.Length);
             m = Instantiate(terrainsSmall[number], o.transform);
+            m.GetComponent<SmallSpawns>().x = x;
+            m.GetComponent<SmallSpawns>().z = z;
         }
         else
         {
@@ -182,10 +186,10 @@ public class WorldGeneration : MonoBehaviour
     public void GenerateStart()
     {
         float x = 0;
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 5; i++)
         {
             float z = 0;
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < 5; j++)
             {
                 GenerateSquare(i, j);
                 z += spacing;

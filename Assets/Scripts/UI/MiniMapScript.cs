@@ -6,7 +6,7 @@ public class MiniMapScript : MonoBehaviour
 
     public WorldGeneration world;
     public GameObject playerDot;
-    public  GameObject square;
+    public GameObject square;
 
     private int x;
     private int z;
@@ -23,12 +23,13 @@ public class MiniMapScript : MonoBehaviour
         z = world.playerCoord[1];
         float posX = player.transform.position.x - (x * world.spacing);
         float posZ = player.transform.position.z - (z * world.spacing);
-        playerDot.transform.localPosition = new Vector3(Calculate(posX), Calculate(posZ), 0);
+        playerDot.transform.localPosition = new Vector3(Calculate(posX, 120), Calculate(posZ, 120), 0);
+        GetComponent<MapScript>().playerDot.transform.localPosition = new Vector3(Calculate(posX, 60), Calculate(posZ, 60), 0);
     }
 
-    private float Calculate(float pos)
+    private float Calculate(float pos, float width)
     {
-        return (pos * 120 / 1000) - 60;
+        return (pos * width / 1000) - width / 2;
     }
 
     public void ChangeSquare(Sprite sprite)

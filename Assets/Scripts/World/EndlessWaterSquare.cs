@@ -12,7 +12,7 @@ public class EndlessWaterSquare : MonoBehaviour {
     //Water square data
     private float squareWidth = 1000f;
     private float innerSquareResolution = 5f;
-    private float outerSquareResolution = 25f;
+    private float outerSquareResolution = 50f;
 
     //The list with all water mesh squares == the entire ocean we can see
     List<WaterSquare> waterSquares = new List<WaterSquare>();
@@ -55,7 +55,10 @@ public class EndlessWaterSquare : MonoBehaviour {
         secondsSinceStart = Time.time;
 
         //Update the position of the boat to see if we should move the water
-        boatPos = boatObj.transform.position;
+        if(boatObj != null)
+        {
+            boatPos = boatObj.transform.position;
+        }
     }
 
     //Update the water with no thread to compare 

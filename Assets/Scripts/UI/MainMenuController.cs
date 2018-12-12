@@ -10,8 +10,9 @@ public class MainMenuController : MonoBehaviour
 
     public GameObject mainMenu;
     public GameObject loadMenu;
+    public GameObject credits;
 
-
+    
     private void Start()
     {
         Text[] texts = loadMenu.GetComponentsInChildren<Text>();
@@ -27,6 +28,7 @@ public class MainMenuController : MonoBehaviour
             }
         }
         loadMenu.SetActive(false);
+        credits.SetActive(false);
     }
 
     public void openMainMenu()
@@ -60,5 +62,15 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("Se cerro el juego");
         Application.Quit();
+    }
+
+    public void Credits()
+    {
+        credits.SetActive(true);
+    }
+
+    public void GoMenu()
+    {
+        SceneManager.LoadScene(0);   
     }
 }

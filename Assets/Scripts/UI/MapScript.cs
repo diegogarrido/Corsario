@@ -7,6 +7,7 @@ public class MapScript : MonoBehaviour
     public GameObject map;
     public GameObject section;
     public GameObject world;
+    public GameObject playerDot;
 
     void Start()
     {
@@ -20,11 +21,11 @@ public class MapScript : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        int x = world.GetComponent<WorldGeneration>().playerCoord[0] - 3;
-        int z = world.GetComponent<WorldGeneration>().playerCoord[1] - 3;
-        for (int i = x; i < (x + 6); i++)
+        int x = world.GetComponent<WorldGeneration>().playerCoord[0] - 2;
+        int z = world.GetComponent<WorldGeneration>().playerCoord[1] - 2;
+        for (int i = x; i < (x + 5); i++)
         {
-            for (int j = z; j < (z + 6); j++)
+            for (int j = z; j < (z + 5); j++)
             {
                 GameObject sec = Instantiate(section, map.transform);
                 for (int k = 0; k < world.transform.childCount; k++)
@@ -32,10 +33,10 @@ public class MapScript : MonoBehaviour
                     if (world.transform.GetChild(k).gameObject.name == i + "-" + j)
                     {
                         sec.GetComponent<Image>().sprite = world.transform.GetChild(k).GetComponentInChildren<SpriteRenderer>().sprite;
-                        if (i == x + 3 && j == z + 3)
+                        if (i == x + 2 && j == z + 2)
                         {
                             GetComponent<MiniMapScript>().ChangeSquare(sec.GetComponent<Image>().sprite);
-                            sec.GetComponent<Image>().color = new Color(255,255,0);
+                            playerDot = Instantiate(GetComponent<MiniMapScript>().playerDot,sec.transform);
                         }
                         break;
                     }

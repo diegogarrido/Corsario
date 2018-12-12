@@ -1,24 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ExitScript : MonoBehaviour {
 
-    public GameObject riddle;
+public class ExitScript : MonoBehaviour
+{
+
     public GameObject ExitOption;
+    public GameObject lose;
 
-
-    void Start () {
-
+    void Start()
+    {
         ExitOption.SetActive(false);
+        lose.SetActive(false);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void Exit()
     {
@@ -27,8 +21,7 @@ public class ExitScript : MonoBehaviour {
 
     public void Confirm()
     {
-        SceneManager.LoadScene(1);
-
+        SceneManager.UnloadSceneAsync("Acertijos");
     }
 
     public void Deny()

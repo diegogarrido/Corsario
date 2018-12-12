@@ -13,9 +13,6 @@ public class RiddleScript : MonoBehaviour
     public GameObject panelText;
     public GameObject texto;
 
-    Random rnd = new Random();
-
-
     void Start()
     {
 
@@ -25,37 +22,10 @@ public class RiddleScript : MonoBehaviour
         {
             GameObject b = Instantiate(boton, panel.transform);
             b.GetComponentInChildren<Text>().text = riddles[rid].answers[i];
-
+            b.GetComponent<ButtonScript>().number = i;
+            b.GetComponent<ButtonScript>().ridd = riddles[rid];
         }
         texto.GetComponent<Text>().text = riddles[rid].riddle;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-   public void Win()
-    {
-        RollItem();
-    }
-
-    public void RollItem()
-    {
-       /* InventoryScript inv = GameObject.FindGameObject("Menu").GetComponent<InventoryScript>();
-
-
-        item = inve.items[Random.Range(0, inventory.items.Length)];
-        if (Random.Range(0, 100) >= (item.rarity * 10) - 10)
-        {
-            quantity = Random.Range(1, 200 / (item.rarity * 10));
-        }
-        else
-        {
-            RollItem();
-        } */
-    }
-
 
 }

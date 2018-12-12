@@ -100,7 +100,9 @@ public class BoatController : MonoBehaviour
         if (Input.GetAxis("Horizontal") != 0 && !spyGlass.isZooming)
         {
             previous = transform.position;
-            transform.Rotate(Vector3.forward * Input.GetAxis("Horizontal") * boat.turnSpeed * Time.deltaTime);
+            Vector3 rotation = Vector3.forward * Input.GetAxis("Horizontal") * boat.turnSpeed * Time.deltaTime;
+            transform.Rotate(rotation);
+            GameObject.FindGameObjectWithTag("Compass").GetComponent<Compass>().north.transform.Rotate(rotation);
         }
         if (Input.GetAxis("Vertical") != 0 && !spyGlass.isZooming)
         {
