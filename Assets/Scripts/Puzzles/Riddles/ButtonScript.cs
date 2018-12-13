@@ -51,7 +51,8 @@ public class ButtonScript : MonoBehaviour {
      public void Lose()
      {
         lose.SetActive(true);
-     }
+        
+    }
 
 
 }

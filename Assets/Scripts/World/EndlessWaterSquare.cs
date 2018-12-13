@@ -30,7 +30,6 @@ public class EndlessWaterSquare : MonoBehaviour {
 
     void Start()
     {
-        boatObj = GameObject.FindGameObjectWithTag("Player");
         CreateEndlessSea();
 
         //Init the time
@@ -42,6 +41,7 @@ public class EndlessWaterSquare : MonoBehaviour {
         //Start the coroutine
         StartCoroutine(UpdateWater());
 
+        boatObj = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()

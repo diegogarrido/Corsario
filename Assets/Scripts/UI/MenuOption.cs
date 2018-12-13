@@ -43,7 +43,10 @@ public class MenuOption : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(2, LoadSceneMode.Additive);
+        GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().CloseAll();
+        GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().HideMainUI();
+        GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().gamePaused = true;
     }
 
     public void Creditos()
