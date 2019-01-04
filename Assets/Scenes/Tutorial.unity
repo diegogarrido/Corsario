@@ -1749,8 +1749,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -11, y: -25}
-  m_SizeDelta: {x: -43.6, y: -33.950012}
+  m_AnchoredPosition: {x: -148.1, y: -25}
+  m_SizeDelta: {x: -317.8, y: -34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239363109
 MonoBehaviour:
@@ -1784,8 +1784,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "BIR = Disparar\nBDR = Mover Camara\nE = Catalejo\nI = Inventario\nM = Mapa\nEsc
-    = Men\xFA Pausa\n\n"
+  m_Text: 'BIR = Disparar
+
+    BDR = Mover Camara
+
+    I = Inventario
+
+    R = Recargar'
 --- !u!222 &239363110
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4972,7 +4977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00006677361, y: -294.70007}
+  m_AnchoredPosition: {x: -0.00007573443, y: -294.70007}
   m_SizeDelta: {x: -9.6, y: 589.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &527819160
@@ -14006,12 +14011,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 239363108}
+  - {fileID: 1769404761}
   m_Father: {fileID: 745767616}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -65, y: 23}
+  m_AnchoredPosition: {x: -65, y: -39}
   m_SizeDelta: {x: -151.1, y: -150.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1344124143
@@ -19749,6 +19755,81 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 887ddc28c17309e4fa3655072688a4a3, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1769404760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1769404761}
+  - component: {fileID: 1769404763}
+  - component: {fileID: 1769404762}
+  m_Layer: 5
+  m_Name: Bienvenida (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1769404761
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1769404760}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.999999, y: 0.999999, z: 0.999999}
+  m_Children: []
+  m_Father: {fileID: 1344124142}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 293, y: -24.99997}
+  m_SizeDelta: {x: -401.20007, y: -34}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1769404762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1769404760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9254902, g: 0.9137255, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: f0ff17a8267e55245aaff4b128c9d214, type: 3}
+    m_FontSize: 48
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 48
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "M = Mapa\nEsc = Men\xFA Pausa\nQ = Reparar"
+--- !u!222 &1769404763
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1769404760}
+  m_CullTransparentMesh: 0
 --- !u!1 &1770077089
 GameObject:
   m_ObjectHideFlags: 0
@@ -23352,7 +23433,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2067080638}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999998
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
