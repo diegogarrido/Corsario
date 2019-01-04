@@ -58,6 +58,12 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene(3);
     }
 
+    public void Tutorial()
+    {
+        PlayerPrefs.SetString("Load", "Tutorial");
+        SceneManager.LoadScene(3);
+    }
+
     public void QuitGame()
     {
         Debug.Log("Se cerro el juego");

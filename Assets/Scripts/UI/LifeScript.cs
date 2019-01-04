@@ -11,7 +11,7 @@ public class LifeScript : MonoBehaviour {
 
     void Start () {
         boat = GameObject.FindGameObjectWithTag("Player").GetComponent<BoatScript>();
-        healthBar.maxValue = boat.health;
+        healthBar.maxValue = boat.boat.health;
     }
 	
 	void Update () {

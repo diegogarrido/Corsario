@@ -24,6 +24,7 @@ public class BoatScript : MonoBehaviour {
         if (health <= 0) {
             Component.Destroy(GetComponent<MeshFilter>());
             Component.Destroy(GetComponent<BoatPhysics>());
+            GetComponent<Rigidbody>().freezeRotation = false;
         }
     }
 

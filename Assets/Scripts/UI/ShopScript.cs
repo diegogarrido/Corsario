@@ -10,32 +10,56 @@ public class ShopScript : MonoBehaviour
     public GameObject boatsPanel;
     public GameObject optionsPanel;
     public GameObject backButton;
-    public GameObject[] boats;
     public GameObject boatSlot;
-    public int[] shopItems;
-    public int[] quantities;
+    public GameObject itemsScroll;
+    public GameObject boatsScroll;
+    public GameObject shopSlot;
+    public Shop shop;
 
     private InventoryScript inv;
+    private GameObject[] boats;
 
     void Start()
     {
         inv = GetComponent<InventoryScript>();
+        boats = GameObject.FindGameObjectWithTag("World").GetComponent<PlayerSpawner>().boats;
         backButton.SetActive(false);
+        RefreshBoats();
     }
 
     public void RefreshInventory()
     {
-        foreach (Transform child in itemsPanel.transform)
+        if (shop != null)
+        {
+            foreach (Transform child in itemsScroll.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            for (int i = 0; i < shop.shopItems.Length; i++)
+            {
+                GameObject newSlot = Instantiate(shopSlot, itemsScroll.transform);
+                newSlot.GetComponent<ShopSlot>().item = inv.items[shop.shopItems[i]];
+                newSlot.GetComponent<ShopSlot>().quantity.text = "" + shop.quantities[i];
+                newSlot.GetComponent<ShopSlot>().RefreshItem();
+            }
+        }
+    }
+
+    public void RefreshBoats()
+    {
+        foreach (Transform child in boatsScroll.transform)
         {
             Destroy(child.gameObject);
         }
-        for (int i = 0; i < shopItems.Length; i++)
+        for (int i = 0; i < boats.Length; i++)
         {
-            GameObject newSlot = Instantiate(inv.slot, itemsPanel.transform);
-            newSlot.GetComponent<SlotScript>().item = inv.items[shopItems[i]];
-            newSlot.GetComponent<SlotScript>().quantity.text = "" + quantities[i];
-            newSlot.GetComponent<SlotScript>().inBase = false;
-            newSlot.GetComponent<SlotScript>().transferable = false;
+            if(boats[i].GetComponent<BoatScript>().boat.boatName != boats[GameObject.FindGameObjectWithTag("World").GetComponent<PlayerSpawner>().boat].GetComponent<BoatScript>().boat.boatName)
+            {
+                GameObject b = Instantiate(boatSlot, boatsScroll.transform);
+                b.GetComponent<BoatSlotScript>().boat = boats[i].GetComponent<BoatScript>().boat;
+                b.GetComponent<BoatSlotScript>().playerValue = boats[GameObject.FindGameObjectWithTag("World").GetComponent<PlayerSpawner>().boat].GetComponent<BoatScript>().boat.price;
+                b.GetComponent<BoatSlotScript>().ShowBoat();
+            }
         }
     }
 
@@ -64,25 +88,7 @@ public class ShopScript : MonoBehaviour
     public void Active(bool active)
     {
         shopPanel.SetActive(active);
+        inv.SetSellable(active);
     }
 
-    public void RollItems()
-    {
-        int ammount = Random.Range(3, 5);
-        shopItems = new int[ammount];
-        quantities = new int[ammount];
-        for (int i = 0; i < ammount; i++)
-        {
-            while (true)
-            {
-                shopItems[i] = Random.Range(0, inv.items.Length);
-                if (Random.Range(0, 100) >= (inv.items[shopItems[i]].rarity * 10) - 10)
-                {
-                    int quantity = Random.Range(1, 200 / (inv.items[shopItems[i]].rarity * 10));
-                    quantities[i] = quantity;
-                    break;
-                }
-            }
-        }
-    }
 }

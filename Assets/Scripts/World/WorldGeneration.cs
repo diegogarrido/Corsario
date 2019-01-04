@@ -15,7 +15,7 @@ public class WorldGeneration : MonoBehaviour
 
     void Update()
     {
-        if (playerCoord != null && playerCoord.Length > 0)
+        if (playerCoord != null && playerCoord.Length > 0 && player != null)
         {
             CheckCoordinates();
         }
@@ -116,7 +116,9 @@ public class WorldGeneration : MonoBehaviour
         }
         else if (type == "Medium")
         {
-            Instantiate(terrainsMedium[islandIndex], o.transform);
+            GameObject sq = Instantiate(terrainsMedium[islandIndex], o.transform);
+            sq.GetComponent<MediumSpawns>().x = x;
+            sq.GetComponent<MediumSpawns>().z = z;
         }
         else if (type == "Small")
         {
@@ -161,6 +163,8 @@ public class WorldGeneration : MonoBehaviour
             iType = "Medium";
             number = Random.Range(0, terrainsMedium.Length);
             m = Instantiate(terrainsMedium[number], o.transform);
+            m.GetComponent<MediumSpawns>().x = x;
+            m.GetComponent<MediumSpawns>().z = z;
         }
         else if (type >= 70)
         {
@@ -204,6 +208,15 @@ public class WorldGeneration : MonoBehaviour
         data.playerX = playerCoord[0];
         data.playerZ = playerCoord[1];
         data.boat = GetComponent<PlayerSpawner>().boat;
-        DataManager.SaveData(data);
+        if(player != null)
+        {
+            data.health = player.GetComponent<BoatScript>().health;
+            DataManager.SaveData(data);
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            SaveData();
+        }
     }
 }

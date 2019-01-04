@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   itemName: Madera
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 21300000, guid: 9ef8ecec4914da6499fffe466f331377, type: 3}
   equipable: 0
+  equipableType: 
   usable: 0
   weight: 1
   rarity: 1

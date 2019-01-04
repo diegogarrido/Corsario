@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 135424165587439872}
   m_Layer: 0
   m_Name: TestBoatPirate
-  m_TagString: Untagged
+  m_TagString: Enemy Pirate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -778,11 +778,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c67bfd8b992524ba0c98924c020b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootPoint: {fileID: 1753734546244924}
+  shootPoints: []
   cannonBall: {fileID: 1633442719778946, guid: d6692a5ec6b9fd546916618f86dc4699, type: 2}
   cannon: {fileID: 11400000, guid: ab0b068828b4a2f44859d429fef346f8, type: 2}
   ready: 0
   timeLeft: 0
+  shoots: 0
 --- !u!114 &114141485799349466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -794,11 +795,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c67bfd8b992524ba0c98924c020b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootPoint: {fileID: 1273950120230826}
+  shootPoints: []
   cannonBall: {fileID: 1633442719778946, guid: d6692a5ec6b9fd546916618f86dc4699, type: 2}
   cannon: {fileID: 11400000, guid: ab0b068828b4a2f44859d429fef346f8, type: 2}
   ready: 0
   timeLeft: 0
+  shoots: 0
 --- !u!114 &114249571860249824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -812,10 +814,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boat: {fileID: 11400000, guid: 00cec25d57a16694b9436010c1f4cec6, type: 2}
   health: 0
-  maxCargo: 0
-  cargo: 0
+  maxWeight: 0
   speed: 0
   turnSpeed: 0
+  loaded: 0
 --- !u!114 &114557615144451528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -847,6 +849,8 @@ MonoBehaviour:
   - {fileID: 1346098369052322}
   playerIs: 
   playerAt: 
+  chasing: 0
+  resourceCrate: {fileID: 0}
 --- !u!135 &135424165587439872
 SphereCollider:
   m_ObjectHideFlags: 1

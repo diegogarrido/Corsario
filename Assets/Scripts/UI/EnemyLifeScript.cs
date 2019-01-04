@@ -16,7 +16,14 @@ public class EnemyLifeScript : MonoBehaviour {
 
     void Update () {
         healthBar.value = enemy.health;
-        Vector3 playerPosition = new Vector3(player.transform.position.x,30, player.transform.position.z);
-        transform.LookAt(playerPosition);
+        if(player != null)
+        {
+            Vector3 playerPosition = new Vector3(player.transform.position.x, 30, player.transform.position.z);
+            transform.LookAt(playerPosition);
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
 	}
 }

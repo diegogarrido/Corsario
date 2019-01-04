@@ -6,4 +6,5 @@ public class GameData{
 	public int playerX;
     public int playerZ;
     public int boat;
+    public float health;
 }

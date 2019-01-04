@@ -789,8 +789,12 @@ MonoBehaviour:
   - {fileID: 1683326396084198}
   - {fileID: 1560566106723574}
   treasureChest: {fileID: 110828, guid: cae8e749c8d3eb44da3bdd1e6c9f42fd, type: 2}
+  resourceCrate: {fileID: 1094622891190910, guid: bf9ec770622162b45b396f6f55f3476f,
+    type: 2}
   x: 0
   z: 0
+  data:
+    content: 
 --- !u!114 &114996659304080486
 MonoBehaviour:
   m_ObjectHideFlags: 1

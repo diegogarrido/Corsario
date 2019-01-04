@@ -159,7 +159,11 @@ MonoBehaviour:
   quantity: {fileID: 0}
   image: {fileID: 114763889579123174}
   options: {fileID: 1188600894242258}
+  transferButton: {fileID: 0}
+  sellButton: {fileID: 0}
+  equipButton: {fileID: 1774260559606088}
   transferable: 0
+  sellable: 0
   inBase: 0
 --- !u!114 &114547462851315784
 MonoBehaviour:

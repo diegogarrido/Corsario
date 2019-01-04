@@ -13,6 +13,7 @@ public class Boat : ScriptableObject
     public float capacity;
     public int cannonsPerSide;
     public int price;
-    public Sprite icon;
+    public Sprite sprite;
+    public float rammingDamage;
 
 }

@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33587510773157102}
   - component: {fileID: 23730003610596060}
   - component: {fileID: 114216369383012050}
-  - component: {fileID: 65581247274356900}
+  - component: {fileID: 64032670746724428}
   m_Layer: 0
   m_Name: ResourceCrate
   m_TagString: Untagged
@@ -139,8 +139,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &65581247274356900
-BoxCollider:
+--- !u!64 &64032670746724428
+MeshCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -148,9 +148,11 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.4702635, y: 1.4695691, z: 1.4696618}
-  m_Center: {x: -0.000161618, y: -0.0000911653, z: -0.000039756294}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 18b73e7ccea5b0546a7811eda281a238, type: 3}
 --- !u!114 &114116773009687276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,5 +177,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdc49fea6ad46194c9c03612c84df899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crates:
+  - {fileID: 1000012300543250, guid: 5ba9317adf09ffa4e954285b691b5b9d, type: 2}
+  - {fileID: 1000013743448318, guid: 05262e1cb6621c84f8f31dd5b4799010, type: 2}
+  - {fileID: 1000014055932746, guid: de49971f04e49d3469405279c2afd0bc, type: 2}
+  - {fileID: 1322823532792000, guid: c230cf9ffea1ef74b9eca483ad69d225, type: 2}
   item: {fileID: 0}
   quantity: 0

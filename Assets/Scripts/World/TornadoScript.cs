@@ -24,13 +24,21 @@ public class TornadoScript : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(player.transform.position,transform.position) < detectionDistance)
+        if(player != null)
         {
-            FollowPlayer();
+            if (Vector3.Distance(player.transform.position, transform.position) < detectionDistance)
+            {
+                FollowPlayer();
+            }
+            else
+            {
+                Roam();
+            }
         }
         else
         {
             Roam();
+            player = GameObject.FindGameObjectWithTag("Player");
         }
     }
 

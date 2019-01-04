@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResourceCrate : MonoBehaviour
 {
 
+    public GameObject[] crates;
     public Item item;
     public int quantity;
 
@@ -12,7 +13,12 @@ public class ResourceCrate : MonoBehaviour
 
     private void Start()
     {
+        int index = Random.Range(0, crates.Length);
+        GetComponent<MeshFilter>().sharedMesh = crates[index].GetComponent<MeshFilter>().sharedMesh;
+        GetComponent<Renderer>().sharedMaterial = crates[index].GetComponent<Renderer>().sharedMaterial;
+        GetComponent<MeshCollider>().sharedMesh = crates[index].GetComponent<MeshCollider>().sharedMesh;
         inventory = GameObject.FindGameObjectWithTag("Menu").GetComponent<InventoryScript>();
+        transform.Rotate(new Vector3(Random.Range(0f,90f), Random.Range(0f, 90f), Random.Range(0f, 90f)));
         RollItem();
     }
 
@@ -20,10 +26,10 @@ public class ResourceCrate : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if(inventory.AvailableWeight() > item.weight)
+            if(inventory.AvailableWeight() > item.weight && !other.gameObject.GetComponent<BoatController>().died)
             {
                 inventory.AddItem(item, quantity);
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
     }

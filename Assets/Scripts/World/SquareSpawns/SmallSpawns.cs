@@ -7,10 +7,10 @@ public class SmallSpawns : MonoBehaviour
 
     public GameObject[] spawns;
     public GameObject treasureChest;
+    public GameObject resourceCrate;
     public int x;
     public int z;
-
-    private SquareData data;
+    public SquareData data;
 
     void Start()
     {
@@ -20,9 +20,20 @@ public class SmallSpawns : MonoBehaviour
             if (data.content.Split('-')[0] == "Treasure")
             {
                 GameObject t = Instantiate(treasureChest, spawns[int.Parse(data.content.Split('-')[2])].transform);
-                if(data.content.Split('-')[1] == "Opened")
+                if (data.content.Split('-')[1] == "Opened")
                 {
                     t.GetComponent<Animator>().SetBool("Opened", true);
+                }
+            }
+            else if (data.content == "Resources")
+            {
+                for (int i = 0; i < spawns.Length; i++)
+                {
+                    GameObject c = Instantiate(resourceCrate, spawns[i].transform);
+                    Destroy(c.GetComponent<BoatPhysics>());
+                    c.GetComponent<Rigidbody>().freezeRotation = false;
+                    c.transform.localPosition += new Vector3(0, 1, 0);
+                    c.GetComponentInChildren<MeshCollider>().isTrigger = false;
                 }
             }
         }
@@ -31,16 +42,17 @@ public class SmallSpawns : MonoBehaviour
             int rand = Random.Range(0, 100);
             if (rand > 40)
             {
-                /*while (true)
+                for (int i = 0; i < spawns.Length; i++)
                 {
-                    int spawn = Random.Range(0, spawns.Length);
-                    if (!spawnUsed[spawn])
-                    {
-                        //Spawn resource crate
-                        spawnUsed[spawn] = true;
-                        break;
-                    }
-                }*/
+                    GameObject c = Instantiate(resourceCrate, spawns[i].transform);
+                    Destroy(c.GetComponent<BoatPhysics>());
+                    c.GetComponent<Rigidbody>().freezeRotation = false;
+                    c.transform.localPosition += new Vector3(0, 1, 0);
+                    c.GetComponentInChildren<MeshCollider>().isTrigger = false;
+                }
+                data = new SquareData();
+                data.content = "Resources";
+                DataManager.SaveSquareData(data, x, z);
             }
             else
             {

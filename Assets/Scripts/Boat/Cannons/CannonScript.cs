@@ -23,15 +23,23 @@ public class CannonScript : MonoBehaviour
     }
     void Update()
     {
-
         if (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
         }
-        else
+        else if (!ready)
         {
             ready = true;
+            timeLeft = 0;
+            shoots = cannon.shoots;
         }
+    }
+
+    public void Reload()
+    {
+        shoots = 0;
+        timeLeft = cannon.coolDown;
+        ready = false;
     }
 
     public bool Shoot(GameObject shooter)
@@ -43,16 +51,14 @@ public class CannonScript : MonoBehaviour
 
             cannon.Shoot(cannonBall, gameObject, shootPoints[shootPoint], shooter);
             shootPoint++;
-            if(shootPoint >= shootPoints.Length)
+            if (shootPoint >= shootPoints.Length)
             {
                 shootPoint = 0;
             }
             shoots--;
             if (shoots == 0)
             {
-                timeLeft = cannon.coolDown;
-                shoots = cannon.shoots;
-                ready = false;
+                Reload();
             }
             return true;
         }

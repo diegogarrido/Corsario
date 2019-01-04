@@ -21,6 +21,8 @@ public class ExitScript : MonoBehaviour
 
     public void Confirm()
     {
+        GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().ShowMainUI();
+        GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().gamePaused = false;
         SceneManager.UnloadSceneAsync("Acertijos");
     }
 

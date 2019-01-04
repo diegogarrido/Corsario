@@ -6,17 +6,19 @@ public class BigSpawns : MonoBehaviour
 {
 
     public GameObject buildingSpawn;
+    public GameObject pirateSpawn;
+    public GameObject[] pirateBoats;
     public GameObject playerHouse1;
     public GameObject playerHouse2;
     public GameObject playerHouseFinished;
     public GameObject shop;
     public GameObject pirateBase;
+    public GameObject altar;
 
     public bool forceBase;
     public int x;
     public int z;
-
-    private SquareData data;
+    public SquareData data;
 
     void Start()
     {
@@ -40,24 +42,36 @@ public class BigSpawns : MonoBehaviour
             if (data.content == "Shop")
             {
                 Instantiate(shop, buildingSpawn.transform);
-                GameObject.FindGameObjectWithTag("Menu").GetComponent<ShopScript>().RollItems();
-                GameObject.FindGameObjectWithTag("Menu").GetComponent<ShopScript>().RefreshInventory();
             }
             else if (data.content == "PirateBase")
             {
-                //Instantiate(pirateBase, buildingSpawn.transform);
+                Instantiate(pirateBase, buildingSpawn.transform);
+                Instantiate(pirateBoats[pirateBoats.Length - 1], pirateSpawn.transform);
+                Instantiate(pirateBoats[Random.Range(0, pirateBoats.Length - 2)], pirateSpawn.transform).transform.localPosition += new Vector3(40, 0, 0);
+                Instantiate(pirateBoats[Random.Range(0, pirateBoats.Length - 2)], pirateSpawn.transform).transform.localPosition += new Vector3(0, 0, 40);
+                Instantiate(pirateBoats[Random.Range(0, pirateBoats.Length - 2)], pirateSpawn.transform).transform.localPosition += new Vector3(-40, 0, 0);
+                Instantiate(pirateBoats[Random.Range(0, pirateBoats.Length - 2)], pirateSpawn.transform).transform.localPosition += new Vector3(0, 0, -40);
+
             }
-            else if (data.content == "House1")
+            else if (data.content.Contains("House1"))
             {
-                Instantiate(playerHouse1, buildingSpawn.transform);
+                GameObject h = Instantiate(playerHouse1, buildingSpawn.transform);
+                h.GetComponentInChildren<BuildingScript>().wood = int.Parse(data.content.Split('-')[1]);
+                h.GetComponentInChildren<BuildingScript>().rock = int.Parse(data.content.Split('-')[2]);
             }
-            else if (data.content == "House2")
+            else if (data.content.Contains("House2"))
             {
-                Instantiate(playerHouse2, buildingSpawn.transform);
+                GameObject h = Instantiate(playerHouse2, buildingSpawn.transform);
+                h.GetComponentInChildren<BuildingScript>().wood = int.Parse(data.content.Split('-')[1]);
+                h.GetComponentInChildren<BuildingScript>().rock = int.Parse(data.content.Split('-')[2]);
             }
             else if (data.content == "HouseFinished")
             {
                 Instantiate(playerHouseFinished, buildingSpawn.transform);
+            }
+            else if (data.content == "Altar")
+            {
+                Instantiate(altar, buildingSpawn.transform);
             }
         }
     }
@@ -66,24 +80,39 @@ public class BigSpawns : MonoBehaviour
     {
         int rand = Random.Range(0, 100);
         string content = "";
-        if (rand > 90)
+        if (rand > 80)
         {
             Instantiate(shop, buildingSpawn.transform);
             content = "Shop";
-            GameObject.FindGameObjectWithTag("Menu").GetComponent<ShopScript>().RollItems();
-            GameObject.FindGameObjectWithTag("Menu").GetComponent<ShopScript>().RefreshInventory();
         }
         else if (rand > 50)
         {
-            Instantiate(playerHouse1, buildingSpawn.transform);
-            content = "House1";
-        }
-        else if (rand > 10)
-        {
-            //Instantiate(pirateBase, buildingSpawn.transform);
+            Instantiate(pirateBase, buildingSpawn.transform);
             content = "PirateBase";
+            Instantiate(pirateBoats[pirateBoats.Length - 1], pirateSpawn.transform);
+            Instantiate(pirateBoats[Random.Range(0, pirateBoats.Length - 2)], pirateSpawn.transform).transform.localPosition += new Vector3(40, 0, 0);
+            Instantiate(pirateBoats[Random.Range(0, pirateBoats.Length - 2)], pirateSpawn.transform).transform.localPosition += new Vector3(0, 0, 40);
+            Instantiate(pirateBoats[Random.Range(0, pirateBoats.Length - 2)], pirateSpawn.transform).transform.localPosition += new Vector3(-40, 0, 0);
+            Instantiate(pirateBoats[Random.Range(0, pirateBoats.Length - 2)], pirateSpawn.transform).transform.localPosition += new Vector3(0, 0, -40);
+        }
+        else if (rand > 25)
+        {
+            GameObject h = Instantiate(playerHouse1, buildingSpawn.transform);
+            content = "House1-0-0";
+            h.GetComponentInChildren<BuildingScript>().wood = 0;
+            h.GetComponentInChildren<BuildingScript>().rock = 0;
+        }
+        else
+        {
+            Instantiate(altar, buildingSpawn.transform);
+            content = "Altar";
         }
         data.content = content;
+        SaveData();
+    }
+
+    public void SaveData()
+    {
         DataManager.SaveSquareData(data, x, z);
     }
 }

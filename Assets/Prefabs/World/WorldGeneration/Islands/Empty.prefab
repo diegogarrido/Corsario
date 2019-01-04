@@ -266,8 +266,13 @@ MonoBehaviour:
   - {fileID: 1185065055015352}
   pirateBoats:
   - {fileID: 1194171147709440, guid: a6c5668e5ba0e0348b1126c5479d37e0, type: 2}
+  officerBoats:
+  - {fileID: 1443525790585966, guid: a815c7e620e8c0b47a090fdbf3700a08, type: 2}
+  - {fileID: 1580921805341506, guid: 8f41ef43bd03d884a8ea2f478c6e9332, type: 2}
   tornado: {fileID: 148822, guid: 9c81eb172a2e3644cad527014afc356e, type: 2}
   resourceCrate: {fileID: 1094622891190910, guid: bf9ec770622162b45b396f6f55f3476f,
+    type: 2}
+  floatingChest: {fileID: 1363257176713434, guid: f3b1d55086360ed47b0fc47a7046275b,
     type: 2}
 --- !u!154 &154994153831540330
 TerrainCollider:

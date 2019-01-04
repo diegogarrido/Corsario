@@ -8,6 +8,6 @@ public class Riddle : ScriptableObject {
     public string riddle;
     public string[] answers;
     public int correct;
-    [Range(0,2.5f)]
+    [Range(0.1f,2.5f)]
     public float difficulty;
 }

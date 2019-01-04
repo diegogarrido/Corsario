@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class BoatSpyGlass : MonoBehaviour
 {
@@ -10,17 +7,18 @@ public class BoatSpyGlass : MonoBehaviour
     public GameObject mainCamera;
     public GameObject zoomCamera;
     public float zoomLvl;
-
     public bool isZooming;
+
+    private Vector3 start;
 
     void Start()
     {
         isZooming = false;
         zoomCamera.SetActive(false);
         SpyglassFilter.SetActive(false);
+        start = zoomCamera.transform.localPosition;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.E))
@@ -36,6 +34,7 @@ public class BoatSpyGlass : MonoBehaviour
         }
         else
         {
+            zoomCamera.transform.localPosition = start;
             mainCamera.SetActive(true);
             zoomCamera.SetActive(false);
             SpyglassFilter.SetActive(false);

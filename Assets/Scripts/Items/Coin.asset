@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: Coin
   m_EditorClassIdentifier: 
   itemName: Moneda de oro
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 21300000, guid: 4677867bc1232b949ac1ba1aa32682dd, type: 3}
   equipable: 0
   equipableType: 
   usable: 0
-  weight: 0.1
+  weight: 0.05
   rarity: 1
   price: 1

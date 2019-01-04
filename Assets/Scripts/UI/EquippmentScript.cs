@@ -40,38 +40,46 @@ public class EquippmentScript : MonoBehaviour
 
     public void EquipSail(ItemSail item)
     {
-        sailSlot.GetComponent<SlotScript>().item = item;
-        sailSlot.GetComponent<SlotScript>().RefreshItem();
+        sailSlot.GetComponent<InventorySlot>().item = item;
+        sailSlot.GetComponent<InventorySlot>().RefreshItem();
         GameObject.FindGameObjectWithTag("Player").GetComponent<BoatScript>().speed += item.extraSpeed;
     }
 
     public void UnequipSail()
     {
         inv.sailEquiped = -1;
-        inv.AddItem(sailSlot.GetComponent<SlotScript>().item, 1);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<BoatScript>().speed -= ((ItemSail)sailSlot.GetComponent<SlotScript>().item).extraSpeed;
-        sailSlot.GetComponent<SlotScript>().item = null;
-        sailSlot.GetComponent<SlotScript>().RefreshItem();
+        inv.AddItem(sailSlot.GetComponent<InventorySlot>().item, 1);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<BoatScript>().speed -= ((ItemSail)sailSlot.GetComponent<InventorySlot>().item).extraSpeed;
+        sailSlot.GetComponent<InventorySlot>().item = null;
+        sailSlot.GetComponent<InventorySlot>().RefreshItem();
     }
 
     public void EquipCannon(ItemCannon item)
     {
-        for (int i = 0; i < cannonsSlots.transform.childCount; i++)
+        int slot = HasCannonSlot();
+        if(slot != -1)
         {
-            if (cannonsSlots.transform.GetChild(i).GetComponent<SlotScript>().item == null)
+            if (cannonsSlots.transform.GetChild(slot).GetComponent<InventorySlot>().item == null)
             {
-                cannonsSlots.transform.GetChild(i).GetComponent<SlotScript>().item = item;
-                cannonsSlots.transform.GetChild(i).GetComponent<SlotScript>().RefreshItem();
+                cannonsSlots.transform.GetChild(slot).GetComponent<InventorySlot>().item = item;
+                cannonsSlots.transform.GetChild(slot).GetComponent<InventorySlot>().RefreshItem();
                 GameObject.FindGameObjectWithTag("Player").GetComponent<BoatController>().AddCannon(item);
-                break;
             }
+        }
+    }
+
+    public void UnEquipCannons()
+    {
+        foreach (Transform child in cannonsSlots.transform)
+        {
+            child.gameObject.GetComponent<InventorySlot>().Unequip();
         }
     }
 
     public void EquipCannonBall(ItemCannonBall item)
     {
-        cannonBallSlot.GetComponent<SlotScript>().item = item;
-        cannonBallSlot.GetComponent<SlotScript>().RefreshItem();
+        cannonBallSlot.GetComponent<InventorySlot>().item = item;
+        cannonBallSlot.GetComponent<InventorySlot>().RefreshItem();
     }
 
     public void UseCannonBall()
@@ -86,12 +94,12 @@ public class EquippmentScript : MonoBehaviour
     public void UnequipCannonBall()
     {
         inv.cannonBallEquiped = -1;
-        cannonBallSlot.GetComponent<SlotScript>().item = null;
-        cannonBallSlot.GetComponent<SlotScript>().RefreshItem();
+        cannonBallSlot.GetComponent<InventorySlot>().item = null;
+        cannonBallSlot.GetComponent<InventorySlot>().RefreshItem();
         inv.SaveInventory();
     }
 
-    public void UnequipCannon(SlotScript slot)
+    public void UnequipCannon(InventorySlot slot)
     {
         ItemCannon item = (ItemCannon)slot.item;
         slot.item = null;
@@ -107,9 +115,16 @@ public class EquippmentScript : MonoBehaviour
         }
         inv.AddItem(item, 1);
     }
-
-    void Update()
+    
+    public int HasCannonSlot()
     {
-
+        for (int i = 0; i < cannonsSlots.transform.childCount; i++)
+        {
+            if (cannonsSlots.transform.GetChild(i).GetComponent<InventorySlot>().item == null)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -67,6 +67,7 @@ public class MenuController : MonoBehaviour {
         menu.GetComponent<MapScript>().Active(false);
         menu.GetComponent<BaseScript>().Active(false);
         menu.GetComponent<ShopScript>().Active(false);
+        menu.GetComponent<AltarScript>().Active(false);
         Time.timeScale = 1;
         gamePaused = false;
     }

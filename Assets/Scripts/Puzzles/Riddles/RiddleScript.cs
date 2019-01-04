@@ -15,7 +15,7 @@ public class RiddleScript : MonoBehaviour
 
     void Start()
     {
-
+        GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().gamePaused = true;
         int rid = Random.Range(0, riddles.Length);
 
         for (int i = 0; i < riddles[rid].answers.Length; i++)

@@ -16,6 +16,6 @@ MonoBehaviour:
   equipable: 0
   equipableType: 
   usable: 0
-  weight: 0.5
+  weight: 0.1
   rarity: 10
   price: 100

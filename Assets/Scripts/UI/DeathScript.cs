@@ -39,7 +39,6 @@ public class DeathScript : MonoBehaviour {
     public void ReloadScene()
     {
         PlayerPrefs.SetString("Load", "Game");
-        SceneManager.UnloadSceneAsync("Game");
         SceneManager.LoadScene(3);
     }
 }

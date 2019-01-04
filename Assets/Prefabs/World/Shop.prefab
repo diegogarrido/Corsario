@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33928794569446624}
   - component: {fileID: 23055742997544132}
   - component: {fileID: 64054155562180114}
+  - component: {fileID: 114410783056411382}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -98,3 +99,16 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 1a68a99d68aa44444818203ea6391ec7, type: 3}
+--- !u!114 &114410783056411382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1578830224910802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef44045fe6c4c6d498d02b95c8adf054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopItems: 
+  quantities: 

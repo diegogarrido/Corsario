@@ -11,6 +11,7 @@ MonoImporter:
       type: 2}
   - shop: {fileID: 1578830224910802, guid: 2030e0fa2aadfed4b9f99149cab54c72, type: 2}
   - pirateBase: {instanceID: 0}
+  - altar: {fileID: 1928687601195960, guid: cd33259c5f4aa5746b27fdb658961abe, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

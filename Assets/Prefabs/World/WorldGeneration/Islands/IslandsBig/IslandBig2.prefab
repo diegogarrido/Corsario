@@ -62,6 +62,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1251881419026842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4428649713789972}
+  m_Layer: 0
+  m_Name: PirateSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1325836390947128
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +198,19 @@ Transform:
   m_Father: {fileID: 4471927311393496}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4428649713789972
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1251881419026842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 524.5, y: 0, z: 122.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4471927311393496}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4431907689198462
 Transform:
   m_ObjectHideFlags: 1
@@ -210,6 +238,7 @@ Transform:
   m_Children:
   - {fileID: 4340346581274350}
   - {fileID: 4431907689198462}
+  - {fileID: 4428649713789972}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -555,14 +584,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingSpawn: {fileID: 1251152905433388}
+  pirateSpawn: {fileID: 1251881419026842}
+  pirateBoats:
+  - {fileID: 1194171147709440, guid: a6c5668e5ba0e0348b1126c5479d37e0, type: 2}
+  - {fileID: 1214382503583366, guid: 9038836c982ac3a4eb018e6a2d5ea701, type: 2}
   playerHouse1: {fileID: 100002, guid: 6ce57a6e6a75ae842abd6b3f56f9aeb2, type: 2}
   playerHouse2: {fileID: 100002, guid: bd09b2c1c8efa694da029fb6b1a9f2fd, type: 2}
   playerHouseFinished: {fileID: 100002, guid: b8beb0b1c5ecc86428ecf58aa1c1a42d, type: 2}
   shop: {fileID: 1578830224910802, guid: 2030e0fa2aadfed4b9f99149cab54c72, type: 2}
-  pirateBase: {fileID: 0}
+  pirateBase: {fileID: 1759575605100734, guid: fb807248a07f6784cb9d5a668dbd6962, type: 2}
+  altar: {fileID: 1928687601195960, guid: cd33259c5f4aa5746b27fdb658961abe, type: 2}
   forceBase: 0
   x: 0
   z: 0
+  data:
+    content: 
 --- !u!114 &114549503827487272
 MonoBehaviour:
   m_ObjectHideFlags: 1

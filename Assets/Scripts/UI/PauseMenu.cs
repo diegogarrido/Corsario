@@ -23,6 +23,7 @@ public class PauseMenu : MonoBehaviour {
 
 	public void MainMenu()
 	{
+        GetComponent<MenuController>().gamePaused = false;
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
 	}

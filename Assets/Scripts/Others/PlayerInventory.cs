@@ -10,4 +10,6 @@ public class PlayerInventory
     public int sailEquiped;
     public float totalWeight;
     public int[] baseQuantities;
+    public int coinsInAltar;
+    public bool gameFinished;
 }

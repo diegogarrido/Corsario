@@ -25,10 +25,11 @@ public class BaseScript : MonoBehaviour
             if (baseQuantities[i] > 0)
             {
                 GameObject newSlot = Instantiate(inv.slot, itemsPanel.transform);
-                newSlot.GetComponent<SlotScript>().item = inv.items[i];
-                newSlot.GetComponent<SlotScript>().quantity.text = "" + baseQuantities[i];
-                newSlot.GetComponent<SlotScript>().inBase = true;
-                newSlot.GetComponent<SlotScript>().transferable = true;
+                newSlot.GetComponent<InventorySlot>().item = inv.items[i];
+                newSlot.GetComponent<InventorySlot>().quantity.text = "" + baseQuantities[i];
+                newSlot.GetComponent<InventorySlot>().inBase = true;
+                newSlot.GetComponent<InventorySlot>().transferable = true;
+                newSlot.GetComponent<InventorySlot>().sellable = false;
             }
         }
     }

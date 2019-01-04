@@ -20,40 +20,25 @@ public class CameraFollow : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            bool canRotate = false;
-            if (Input.GetAxis("Mouse X") < 0 && transform.localRotation.y > -0.8)
-            {
-                canRotate = true;
-            }
-            else if (transform.localRotation.y < 0.8 && Input.GetAxis("Mouse X") > 0)
-            {
-                canRotate = true;
-            }
-            if (canRotate)
-            {
-                float angle = rotationSpeed * (Input.GetAxis("Mouse X"));
-                transform.RotateAround(player.position, Vector3.up, angle);
-            }
+            float angle = rotationSpeed * (Input.GetAxis("Mouse X"));
+            transform.RotateAround(player.position, Vector3.up, angle);
         }
     }
 
     private void Direction()
     {
-        if (transform.localRotation.y > 0.5 && transform.localRotation.y < 0.7)
+        float angle = transform.localRotation.eulerAngles.y;
+        if (angle < 101)
         {
             looking = "Right";
         }
-        else if (transform.localRotation.y < -0.5 && transform.localRotation.y > -0.7)
+        else if (angle > 259)
         {
             looking = "Left";
         }
-        else if (transform.localRotation.y >= -0.5 && transform.localRotation.y <= 0.5)
+        else if((angle <= 240 && angle >= 120))
         {
-            looking = "Front";
-        }
-        else
-        {
-            looking = "Back";
+            looking = "Front/Back";
         }
     }
 }

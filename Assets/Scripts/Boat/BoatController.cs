@@ -7,6 +7,8 @@ public class BoatController : MonoBehaviour
     public GameObject[] cannonsRight;
     public CameraFollow cameraFollowing;
     public bool chased;
+    public float speed;
+    public bool died;
 
     private Vector3 previous;
     private BoatSpyGlass spyGlass;
@@ -16,6 +18,8 @@ public class BoatController : MonoBehaviour
 
     void Start()
     {
+        died = false;
+        speed = 0;
         chased = false;
         boat = GetComponent<BoatScript>();
         previous = transform.position;
@@ -28,8 +32,21 @@ public class BoatController : MonoBehaviour
     {
         if (boat.health > 0)
         {
-            Movement();
-            Shoot();
+            if(GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().mainUI.activeInHierarchy && !GameObject.FindGameObjectWithTag("Menu").GetComponent<MenuController>().gamePaused)
+            {
+                Vector3 prev = new Vector3(previous.x, 0, previous.z);
+                Vector3 now = new Vector3(transform.position.x, 0, transform.position.z);
+                speed = ((now - prev) / Time.deltaTime).magnitude;
+                Movement();
+                Shoot();
+                Reload();
+                Repair();
+            }
+        }
+        else if(!died)
+        {
+            inv.Die();
+            died = true;
         }
         if (chased && !GetComponent<AudioSource>().isPlaying)
         {
@@ -38,6 +55,40 @@ public class BoatController : MonoBehaviour
         else if (!chased && GetComponent<AudioSource>().isPlaying)
         {
             GetComponent<MusicScript>().Stop();
+        }
+    }
+
+    private void Repair()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            int index = inv.FindItem(inv.items[0]);
+            if (index != -1)
+            {
+                if (inv.playerItemsQuantities[index] >= 5 && boat.health < boat.boat.health)
+                {
+                    GameObject.FindGameObjectWithTag("Menu").GetComponent<RepairScript>().repairing = true;
+                }
+            }
+        }
+    }
+
+    private void Reload()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            for (int i = 0; i < cannonsRight.Length; i++)
+            {
+                if (cannonsRight[i].transform.childCount > 0)
+                {
+                    if (inv.cannonBallEquiped != -1)
+                    {
+                        GameObject.FindGameObjectWithTag("Menu").GetComponent<RepairScript>().repairing = false;
+                        cannonsRight[i].GetComponentInChildren<CannonScript>().Reload();
+                        cannonsLeft[i].GetComponentInChildren<CannonScript>().Reload();
+                    }
+                }
+            }
         }
     }
 
@@ -50,11 +101,13 @@ public class BoatController : MonoBehaviour
                 IEnumerator shoot = null;
                 if (cameraFollowing.looking == "Right")
                 {
+                    GameObject.FindGameObjectWithTag("Menu").GetComponent<RepairScript>().repairing = false;
                     shoot = ShootRight();
                     StartCoroutine(shoot);
                 }
                 else if (cameraFollowing.looking == "Left")
                 {
+                    GameObject.FindGameObjectWithTag("Menu").GetComponent<RepairScript>().repairing = false;
                     shoot = ShootLeft();
                     StartCoroutine(shoot);
                 }
@@ -68,8 +121,13 @@ public class BoatController : MonoBehaviour
         {
             if (cannonsLeft[i].transform.childCount == 0)
             {
-                Instantiate(cannon.cannon, cannonsLeft[i].transform);
-                Instantiate(cannon.cannon, cannonsRight[i].transform);
+                BarraCirculo barra = GameObject.FindGameObjectWithTag("Menu").GetComponent<BarraCirculo>();
+                GameObject l = Instantiate(cannon.cannon, cannonsLeft[i].transform);
+                GameObject r = Instantiate(cannon.cannon, cannonsRight[i].transform);
+                if (barra.cooldownsLeft.transform.childCount > 0)
+                {
+                    barra.EquipCannos(l.GetComponent<CannonScript>(), r.GetComponent<CannonScript>(), i);
+                }
                 break;
             }
         }
@@ -85,6 +143,11 @@ public class BoatController : MonoBehaviour
                 {
                     Destroy(cannonsLeft[i].transform.GetChild(0).gameObject);
                     Destroy(cannonsRight[i].transform.GetChild(0).gameObject);
+                    BarraCirculo barra = GameObject.FindGameObjectWithTag("Menu").GetComponent<BarraCirculo>();
+                    if (barra.cooldownsLeft.transform.childCount > 0)
+                    {
+                        barra.EquipCannos(null, null, i);
+                    }
                     break;
                 }
             }
@@ -95,17 +158,19 @@ public class BoatController : MonoBehaviour
     {
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
         {
-            transform.position = new Vector3(previous.x, transform.position.y, previous.z);
+            GetComponent<Rigidbody>().velocity = new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
         }
         if (Input.GetAxis("Horizontal") != 0 && !spyGlass.isZooming)
         {
+            GameObject.FindGameObjectWithTag("Menu").GetComponent<RepairScript>().repairing = false;
             previous = transform.position;
             Vector3 rotation = Vector3.forward * Input.GetAxis("Horizontal") * boat.turnSpeed * Time.deltaTime;
             transform.Rotate(rotation);
-            GameObject.FindGameObjectWithTag("Compass").GetComponent<Compass>().north.transform.Rotate(rotation);
+            GameObject.FindGameObjectWithTag("Compass").GetComponent<Compass>().north.transform.Rotate(-rotation);
         }
         if (Input.GetAxis("Vertical") != 0 && !spyGlass.isZooming)
         {
+            GameObject.FindGameObjectWithTag("Menu").GetComponent<RepairScript>().repairing = false;
             previous = transform.position;
             transform.position += transform.up * -Input.GetAxis("Vertical") * boat.speed * Time.deltaTime;
         }
@@ -137,10 +202,11 @@ public class BoatController : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             if (cannonsLeft[i].transform.childCount > 0)
             {
-                if(inv.cannonBallEquiped != -1)
+                if (inv.cannonBallEquiped != -1)
                 {
                     cannonsLeft[i].GetComponentInChildren<CannonScript>().cannonBall = ((ItemCannonBall)inv.items[inv.cannonBallEquiped]).cannonBall;
-                    if (cannonsLeft[i].GetComponentInChildren<CannonScript>().Shoot(transform.GetChild(0).gameObject)) {
+                    if (cannonsLeft[i].GetComponentInChildren<CannonScript>().Shoot(transform.GetChild(0).gameObject))
+                    {
                         equ.UseCannonBall();
                     }
                 }
@@ -154,11 +220,19 @@ public class BoatController : MonoBehaviour
         {
             boat.health -= 50;
         }
+    }
 
-        if (collision.gameObject.tag == "Ship")
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ship" || collision.gameObject.tag == "Enemy")
         {
-            gameObject.GetComponent<AudioSource>().Stop();
-            gameObject.GetComponent<AudioSource>().Play();
+            if(collision.gameObject.GetComponent<BoatScript>().health > 0)
+            {
+                collision.gameObject.GetComponent<BoatScript>().health -= speed * GetComponent<BoatScript>().boat.rammingDamage;
+                GetComponent<BoatScript>().health -= speed;
+                gameObject.GetComponent<AudioSource>().Stop();
+                gameObject.GetComponent<AudioSource>().Play();
+            }
         }
     }
 }

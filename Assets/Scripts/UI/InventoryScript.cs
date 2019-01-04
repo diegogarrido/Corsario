@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.UI;
 using UnityEngine;
 
 public class InventoryScript : MonoBehaviour
 {
 
+    public Text weightText;
+    public GameObject resourceCrate;
     public GameObject inventoryPanel;
     public GameObject itemsPanel;
     public GameObject equipPanel;
@@ -12,13 +13,16 @@ public class InventoryScript : MonoBehaviour
     public Item[] items;
     public float totalWeight;
     public BoatScript player;
-
-    private Item[] playerItems;
     public int[] playerItemsIndexes;
     public int[] playerItemsQuantities;
     public int[] cannonsEquipped;
     public int cannonBallEquiped;
     public int sailEquiped;
+    public int coinsInAltar;
+    public bool gameFinished;
+
+    private Item[] playerItems;
+    private WorldGeneration world;
 
     void Awake()
     {
@@ -30,6 +34,12 @@ public class InventoryScript : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BoatScript>();
+        world = GameObject.FindGameObjectWithTag("World").GetComponent<WorldGeneration>();
+    }
+
+    private void Update()
+    {
+        weightText.text = "" + totalWeight + "/" + player.maxWeight;
     }
 
     public void LoadData()
@@ -45,6 +55,8 @@ public class InventoryScript : MonoBehaviour
             sailEquiped = playerInv.sailEquiped;
             totalWeight = playerInv.totalWeight;
             GetComponent<BaseScript>().baseQuantities = playerInv.baseQuantities;
+            coinsInAltar = playerInv.coinsInAltar;
+            gameFinished = playerInv.gameFinished;
         }
         else
         {
@@ -64,6 +76,8 @@ public class InventoryScript : MonoBehaviour
             {
                 GetComponent<BaseScript>().baseQuantities[i] = 0;
             }
+            coinsInAltar = 0;
+            gameFinished = false;
             SaveInventory();
             AddItem(items[3], 100);
             AddItem(items[4], 1);
@@ -83,7 +97,7 @@ public class InventoryScript : MonoBehaviour
         {
             if (playerItems[i].equipable)
             {
-                if (playerItems[i].equipableType == "Cannon")
+                if (playerItems[i].equipableType == "Cannon" && GetComponent<EquippmentScript>().HasCannonSlot() != -1)
                 {
                     GetComponent<EquippmentScript>().EquipCannon((ItemCannon)item);
                     for (int j = 0; j < cannonsEquipped.Length; j++)
@@ -100,13 +114,17 @@ public class InventoryScript : MonoBehaviour
                 {
                     GetComponent<EquippmentScript>().EquipCannonBall((ItemCannonBall)item);
                     cannonBallEquiped = ItemIndex(item);
+                    RefreshInventory();
                     SaveInventory();
                 }
                 else if (playerItems[i].equipableType == "Sail")
                 {
-                    GetComponent<EquippmentScript>().EquipSail((ItemSail)item);
-                    sailEquiped = ItemIndex(item);
-                    RemoveItem(item, 1);
+                    if(sailEquiped == -1)
+                    {
+                        GetComponent<EquippmentScript>().EquipSail((ItemSail)item);
+                        sailEquiped = ItemIndex(item);
+                        RemoveItem(item, 1);
+                    }
                 }
             }
         }
@@ -121,7 +139,15 @@ public class InventoryScript : MonoBehaviour
     {
         foreach(Transform child in itemsPanel.transform)
         {
-            child.GetComponent<SlotScript>().transferable = transferable;
+            child.GetComponent<InventorySlot>().transferable = transferable;
+        }
+    }
+
+    public void SetSellable(bool sellable)
+    {
+        foreach (Transform child in itemsPanel.transform)
+        {
+            child.GetComponent<InventorySlot>().sellable = sellable;
         }
     }
 
@@ -135,10 +161,11 @@ public class InventoryScript : MonoBehaviour
         {
             GameObject newSlot = Instantiate(slot, itemsPanel.transform);
             playerItems[i] = items[playerItemsIndexes[i]];
-            newSlot.GetComponent<SlotScript>().item = playerItems[i];
-            newSlot.GetComponent<SlotScript>().quantity.text = "" + playerItemsQuantities[i];
-            newSlot.GetComponent<SlotScript>().inBase = false;
-            newSlot.GetComponent<SlotScript>().transferable = false;
+            newSlot.GetComponent<InventorySlot>().item = playerItems[i];
+            newSlot.GetComponent<InventorySlot>().quantity.text = "" + playerItemsQuantities[i];
+            newSlot.GetComponent<InventorySlot>().inBase = false;
+            newSlot.GetComponent<InventorySlot>().transferable = false;
+            newSlot.GetComponent<InventorySlot>().sellable = false;
         }
     }
 
@@ -176,6 +203,14 @@ public class InventoryScript : MonoBehaviour
         }
         totalWeight -= item.weight * quantity;
         SaveInventory();
+        if(world != null)
+        {
+            world.SaveData();
+        }
+        else
+        {
+            world = GameObject.FindGameObjectWithTag("World").GetComponent<WorldGeneration>();
+        }
         RefreshInventory();
     }
 
@@ -232,6 +267,14 @@ public class InventoryScript : MonoBehaviour
         }
         totalWeight += item.weight * quantity;
         SaveInventory();
+        if (world != null)
+        {
+            world.SaveData();
+        }
+        else
+        {
+            world = GameObject.FindGameObjectWithTag("World").GetComponent<WorldGeneration>();
+        }
         RefreshInventory();
     }
 
@@ -258,6 +301,18 @@ public class InventoryScript : MonoBehaviour
         equipPanel.SetActive(!equipPanel.activeInHierarchy);
     }
 
+    public void Die()
+    {
+        int amount = Random.Range(1, 3);
+        for(int i = 0; i < amount; i++)
+        {
+            int index = Random.Range(0, playerItemsIndexes.Length);
+            int quant = Random.Range(0, playerItemsQuantities[index]);
+            RemoveItem(items[playerItemsIndexes[index]],quant);
+            Instantiate(resourceCrate).transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(Random.Range(0.5f,3),0,Random.Range(0.5f, 3));
+        }
+    }
+
     public void SaveInventory()
     {
         PlayerInventory inv = new PlayerInventory();
@@ -268,6 +323,8 @@ public class InventoryScript : MonoBehaviour
         inv.sailEquiped = sailEquiped;
         inv.totalWeight = totalWeight;
         inv.baseQuantities = GetComponent<BaseScript>().baseQuantities;
+        inv.coinsInAltar = coinsInAltar;
+        inv.gameFinished = gameFinished;
         DataManager.SaveInventory(inv);
     }
 }

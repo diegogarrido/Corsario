@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: 
   itemName: Roca
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 21300000, guid: 9878ee70084a34a43a1e1c8cfda8a47f, type: 3}
   equipable: 0
+  equipableType: 
   usable: 0
   weight: 2
   rarity: 1

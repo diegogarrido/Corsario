@@ -5,6 +5,7 @@ public class MapScript : MonoBehaviour
 {
 
     public GameObject map;
+    public GameObject panel;
     public GameObject section;
     public GameObject world;
     public GameObject playerDot;
@@ -13,6 +14,7 @@ public class MapScript : MonoBehaviour
     {
         RefreshMap();
         map.SetActive(false);
+        panel.SetActive(false);
     }
 
     public void RefreshMap()
@@ -48,5 +50,6 @@ public class MapScript : MonoBehaviour
     public void Active(bool active)
     {
         map.SetActive(active);
+        panel.SetActive(active);
     }
 }

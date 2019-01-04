@@ -36,11 +36,19 @@ public static class DataManager
     {
         if (File.Exists(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat"))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat", FileMode.Open);
-            PlayerInventory inv = (PlayerInventory)bf.Deserialize(file);
-            file.Close();
-            return inv;
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat", FileMode.Open);
+                PlayerInventory inv = (PlayerInventory)bf.Deserialize(file);
+                file.Close();
+                return inv;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                return null;
+            }
         }
         else
         {
@@ -62,11 +70,19 @@ public static class DataManager
     {
         if (File.Exists(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat"))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat", FileMode.Open);
-            GameData data = (GameData)bf.Deserialize(file);
-            file.Close();
-            return data;
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat", FileMode.Open);
+                GameData data = (GameData)bf.Deserialize(file);
+                file.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                return null;
+            }
         }
         else
         {
@@ -88,11 +104,19 @@ public static class DataManager
     {
         if (File.Exists(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + ".dat"))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + ".dat", FileMode.Open);
-            MapSquare square = (MapSquare)bf.Deserialize(file);
-            file.Close();
-            return square;
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + ".dat", FileMode.Open);
+                MapSquare square = (MapSquare)bf.Deserialize(file);
+                file.Close();
+                return square;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                return null;
+            }
         }
         else
         {
@@ -114,11 +138,19 @@ public static class DataManager
     {
         if (File.Exists(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + " Data.dat"))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + " Data.dat", FileMode.Open);
-            SquareData data = (SquareData)bf.Deserialize(file);
-            file.Close();
-            return data;
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/" + saveName + "/Map/" + x + "-" + z + " Data.dat", FileMode.Open);
+                SquareData data = (SquareData)bf.Deserialize(file);
+                file.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                return null;
+            }
         }
         else
         {
@@ -141,5 +173,19 @@ public static class DataManager
         return Directory.Exists(Application.persistentDataPath + "/" + name);
     }
 
-
+    public static void DeleteFiles()
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/" + saveName + "/PlayerData" + ".dat");
+        }
+        if (File.Exists(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/" + saveName + "/PlayerInventory" + ".dat");
+        }
+        if (Directory.Exists(Application.persistentDataPath + "/" + saveName + "/Map/"))
+        {
+            Directory.Delete(Application.persistentDataPath + "/" + saveName + "/Map/");
+        }
+    }
 }

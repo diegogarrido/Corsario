@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4779344664702128}
   - component: {fileID: 212723567540430496}
+  - component: {fileID: 114344391716260324}
   m_Layer: 0
   m_Name: IslandMedium1
   m_TagString: Untagged
@@ -136,6 +137,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!1 &1978483309653796
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4949401062092904}
+  m_Layer: 0
+  m_Name: ResourceSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1991517513045232
 GameObject:
   m_ObjectHideFlags: 1
@@ -177,7 +193,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4949401062092904}
   m_Father: {fileID: 4779344664702128}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -208,6 +225,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4066579774810246}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4949401062092904
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1978483309653796}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 565.2, y: 42.91, z: 338.07}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 4529100439300962}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23087532160384290
 MeshRenderer:
@@ -480,6 +510,42 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114344391716260324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078092904211616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d5fd671aba1e848a9dfce338d43ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trees:
+  - {fileID: 105710, guid: a0a511126f5f6f4449ec80434dc3dfe8, type: 2}
+  - {fileID: 105710, guid: dcdd4333ca90c224794c8a71ea3723ed, type: 2}
+  rocks:
+  - {fileID: 157690, guid: d93ec03b51f37fd4d905a60a08a4fbbc, type: 2}
+  - {fileID: 103450, guid: 4436f5b141ae4074082424c09570acb3, type: 2}
+  - {fileID: 109170, guid: 6a67aaef2f6b30443ac78ea7d762a346, type: 2}
+  - {fileID: 121022, guid: 1bbb9f65959851443977b14c98740663, type: 2}
+  - {fileID: 179510, guid: bee8d047e16101c438fb33382ab66935, type: 2}
+  - {fileID: 190226, guid: 50673ce029549f04d8a30a3886523aad, type: 2}
+  - {fileID: 101208, guid: e13d89ce323009a4a8a53d439b0a74e4, type: 2}
+  - {fileID: 154622, guid: 9991b226736b6964782c28d07cef8881, type: 2}
+  - {fileID: 196428, guid: c04bdda845329ad4ca2003872a1e4b82, type: 2}
+  - {fileID: 156434, guid: 1643ab6b0160ab240a595db4bfb21c56, type: 2}
+  - {fileID: 114716, guid: bb7975b4ee3bc3f40b9b2faf7e4636a2, type: 2}
+  - {fileID: 144092, guid: d18bc5c5a34308844a5c5684e48318db, type: 2}
+  - {fileID: 144770, guid: 5c5d6555d9ad54d49a4654c80774e668, type: 2}
+  - {fileID: 139350, guid: de863afb481be364ea04e5a347f5967f, type: 2}
+  - {fileID: 171860, guid: ca5c291357dc8c54bbb0f485cdccdf17, type: 2}
+  - {fileID: 182100, guid: 7505f79cb619cfd4ebb6af0704ad4260, type: 2}
+  resourceSpawn: {fileID: 1978483309653796}
+  x: 0
+  z: 0
+  data:
+    content: 
 --- !u!114 &114407314783174616
 MonoBehaviour:
   m_ObjectHideFlags: 1

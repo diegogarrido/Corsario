@@ -9,6 +9,5 @@ public class MapSquare{
     public int CoordX;
     public int CoordZ;
     public string content;
-    //imagen en mapa
 
 }
